@@ -77,9 +77,11 @@ def test_scan_multi_timeframe_aggregation(mock_stock, mock_util_df, scanner_engi
         'min_score': 0
     }
     
-    results = scanner_engine.scan_multi_timeframe(config)
+    report = scanner_engine.scan_multi_timeframe(config)
+    results = report['results']
     
     # Verify AAPL is first (appeared in 3 timeframes)
+    assert len(results) > 0
     assert results[0]['symbol'] == 'AAPL'
     assert '1M' in results[0]['timeframes']
     assert '3M' in results[0]['timeframes']
@@ -100,8 +102,9 @@ def test_hard_filters_adr(scanner_engine, mock_ib_service):
     low_adr_data = generate_mock_data(high_momentum=True, high_adr=False)
     config = {'min_adr': 5.0} # ADR is ~2% in mock data
     
-    metrics = scanner_engine.calculate_metrics(low_adr_data, 'LOW_ADR', config)
+    metrics, reason = scanner_engine.calculate_metrics(low_adr_data, 'LOW_ADR', config)
     assert metrics is None
+    assert reason == "adr"
 
 def test_stop_scan_logic(scanner_engine, mock_ib_service):
     """Tests that the engine respects stop requests."""
@@ -146,5 +149,6 @@ def test_rs_calculation_from_low(scanner_engine):
     
     config = {'lookback_days': 100, 'min_price': 1, 'min_volume_dollars': 1, 'min_adr': 0}
     
-    metrics = scanner_engine.calculate_metrics(df, 'TEST', config)
+    metrics, reason = scanner_engine.calculate_metrics(df, 'TEST', config)
     assert metrics['rs_pct'] == 100.0 # (100/50 - 1) * 100
+    assert reason is None

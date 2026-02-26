@@ -36,9 +36,10 @@ def test_calculate_metrics_basic(scanner_engine, mock_data):
     mock_data.loc[mock_data.index[-1], 'close'] = 200
     mock_data.loc[mock_data.index[-1], 'volume'] = 5000000
     
-    metrics = scanner_engine.calculate_metrics(mock_data, 'TEST', config)
+    metrics, reason = scanner_engine.calculate_metrics(mock_data, 'TEST', config)
     
     assert metrics is not None
+    assert reason is None
     assert metrics['symbol'] == 'TEST'
     # Score should be high due to surge and trending data
     assert metrics['score'] > 5
@@ -48,11 +49,13 @@ def test_calculate_metrics_basic(scanner_engine, mock_data):
 
 def test_calculate_metrics_low_price(scanner_engine, mock_data):
     config = {'min_price': 1000.0}
-    metrics = scanner_engine.calculate_metrics(mock_data, 'TEST', config)
+    metrics, reason = scanner_engine.calculate_metrics(mock_data, 'TEST', config)
     assert metrics is None
+    assert reason == "price"
 
 def test_calculate_metrics_low_volume(scanner_engine, mock_data):
     mock_data['volume'] = 100
     config = {'min_volume': 500000}
-    metrics = scanner_engine.calculate_metrics(mock_data, 'TEST', config)
+    metrics, reason = scanner_engine.calculate_metrics(mock_data, 'TEST', config)
     assert metrics is None
+    assert reason == "volume"
