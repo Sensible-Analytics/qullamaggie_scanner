@@ -11,15 +11,14 @@ This tool connects to **Interactive Brokers TWS** to scan the US equity market i
 
 ---
 
-## ✨ Features
-
+- **Free Data Mode** — Scan using Yahoo Finance (Free EOD data) without needing any IBKR API keys
+- **Standalone Apps** — One-click executables for Windows, macOS, and Linux available in the Releases tab
 - **20-Point Scoring System** — Evaluates ADR%, relative strength, EMA alignment, tightness & volume
 - **Multi-Timeframe Scanning** — Simultaneous 1-month, 3-month, and 6-month momentum analysis
 - **TWS Live Integration** — Real-time market data via Interactive Brokers API with one-click chart sync
 - **Streamlit Dashboard** — Interactive web UI with charts, scoring breakdowns, and conviction tracking
 - **History & Analysis** — Save, compare, and review scan results over time
-- **Demo Mode** — Test the scanner without a live TWS connection using mock data
-- **macOS App Bundle** — Double-click launcher for quick access
+- **Demo Mode** — Test the scanner without a live connection using mock data
 
 ---
 
@@ -65,9 +64,9 @@ Every stock is evaluated on a 0–20 scale. High scores = maximum statistical ed
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Python 3.10+** — [Download](https://www.python.org/downloads/)
-- **Interactive Brokers TWS** or **IB Gateway** — [Download](https://www.interactivebrokers.com/en/trading/tws.php)
-- A funded or paper trading IBKR account
+- **Python 3.10+** (Optional if using standalone apps) — [Download](https://www.python.org/downloads/)
+- **Interactive Brokers TWS** — [Download](https://www.interactivebrokers.com/en/trading/tws.php) (Optional: Only needed for live scanning; Yahoo Finance mode works without it)
+- A funded or paper trading IBKR account (Optional)
 
 ### 1. Clone the Repository
 ```bash
@@ -94,10 +93,14 @@ pip install -r requirements.txt
 4. ☐ Uncheck "Read-Only API" only if you plan to execute trades
 
 ### 5. Launch the Scanner
-```bash
-# Option A: Direct launch
-streamlit run ui/dashboard.py
 
+#### Option A: Standalone App (Easiest)
+Download the `.exe`, `.app`, or Linux binary from the [Releases](https://github.com/Sensible-Analytics/qullamaggie_scanner/releases) page and run it. No Python installation required!
+
+#### Option B: Direct Python launch
+```bash
+streamlit run ui/dashboard.py
+```
 # Option B: Use the launch script
 ./run_decision_station.sh
 ```

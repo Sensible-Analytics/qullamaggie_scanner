@@ -5,7 +5,7 @@ import platform
 
 def main():
     print(f"===================================================")
-    print(f"🔨 Building Qullamaggie Scanner for {platform.system()}")
+    print(f"Building Qullamaggie Scanner for {platform.system()}")
     print(f"===================================================")
     
     # 1. Ensure required directories exist
@@ -15,7 +15,7 @@ def main():
             f.write("{}")
 
     # 2. Create the PyInstaller entry point script
-    print("📝 Creating entry point script (run_app.py)...")
+    print("Creating entry point script (run_app.py)...")
     entry_point = """import os
 import sys
 import webbrowser
@@ -82,15 +82,15 @@ if __name__ == "__main__":
         "run_app.py"
     ]
     
-    print(f"🚀 Running PyInstaller...")
+    print(f"Running PyInstaller...")
     print(" ".join(cmd))
     
     # 5. Execute
     try:
         subprocess.run(cmd, check=True)
-        print("✅ Build completed successfully!")
+        print("Build completed successfully!")
     except subprocess.CalledProcessError as e:
-        print(f"❌ Build failed with exit code {e.returncode}")
+        print(f"Build failed with exit code {e.returncode}")
         sys.exit(1)
 
 if __name__ == "__main__":
