@@ -34,6 +34,14 @@ data/
 .pytest_cache/
 .roam/
 
+# Credentials / Secrets (NEVER commit these)
+.env
+.env.*
+*.pem
+*.key
+*.p12
+settings.local.json
+
 # Streamlit
 streamlit_test.log
 

@@ -1,117 +1,184 @@
-# 🚀 True Qullamaggie Stock Scanner (IBKR)
+# 📈 Qullamaggie Decision Station
 
-A professional-grade momentum scanner built strictly according to the **True Qullamaggie Methodology** (as detailed in the 6+ hour video transcript). This tool uses the IBKR API to identify high-potential "Leaders" coiling for explosive moves.
+[![CI](https://github.com/Sensible-Analytics/qullamaggie_scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/Sensible-Analytics/qullamaggie_scanner/actions/workflows/ci.yml)
+[![Release](https://github.com/Sensible-Analytics/qullamaggie_scanner/releases)](https://github.com/Sensible-Analytics/qullamaggie_scanner/releases)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
----
+A professional-grade **momentum stock scanner** built on the [Qullamaggie methodology](https://qullamaggie.com/) — a proven swing trading approach used by Kristjan Kullamägi to turn a small account into tens of millions.
 
-## � Methodology: The 20-Point Scoring System
-
-The scanner evaluates every stock on a 0-20 scale. High scores represent setups with maximum "statistical edge".
-
-| Criteria | Max Pts | Explanation (Video Terminology) |
-| :--- | :--- | :--- |
-| **ADR% (Golden Rule)** | 5 | Average Daily Range over 20 days. High ADR = High octane. |
-| **Relative Strength** | 4 | % Gain from the **lowest point** in the period (1M, 3M, 6M). |
-| **EMA Alignment** | 7 | Price > 10 > 20 > 50 EMA. Includes "surfing" proximity logic. |
-| **Tightness** | 2 | Volatility contraction (coiling). Narrow range over 5 days. |
-| **Volume Surge** | 2 | Recent volume expansion relative to 20-day average. |
-
-### 🛠️ Hard Filters (The Non-Negotiables)
-- **Min ADR**: 5.0% (The baseline for explosive moves)
-- **Min Dollar Volume**: $20,000,000 daily average (Ensures institutional liquidity)
-- **Min Price**: $5.00
+This tool connects to **Interactive Brokers TWS** to scan the US equity market in real-time, scoring stocks on a 20-point system designed to identify explosive breakout setups.
 
 ---
 
-## 📟 TWS Chart Configuration (Verification Guide)
+## ✨ Features
 
-To verify scanner results accurately, configure your TWS Layout as follows:
-
-### 1. Indicators Setup
-- **EMA 10** (Yellow): The "Surfing" line. Best entries occur when price hugs this.
-- **EMA 20** (Light Blue): The secondary support.
-- **EMA 50** (Magenta): The major trend line.
-- **Volume**: Look for "Dry-ups" during consolidation and "Surges" on breakouts.
-- **ATR (14)**: Used for calculating the "Trailing EMA/ATR Stop".
-
-### 2. Multi-Timeframe Layout
-Kristjan recommends viewing 3 charts simultaneously to confirm "Leader" status:
-1. **Daily (1 Month View)**: For precise entry timing and tightness check.
-2. **Weekly (3 Month View)**: To see the primary breakout structure.
-3. **Monthly (6 Month View)**: To identify "Blue Sky" breakouts.
-
-### 3. TWS Sync (One-Click)
-The scanner UI is linked to TWS via **Display Group 1 (Red Link)**. 
-- Ensure your TWS Chart window has the **Red Chain Icon** selected.
-- Clicking any row in the Scanner UI will automatically update your TWS Chart.
-
-### 4. Extreme Detail Traceability (Lineage)
-For every stock in the scan result, you can view the exact mathematical lineage of its score:
-- **Double-Click** any row in the Scan Results table.
-- A popup will show the **precise values** for EMA Alignment, RS components, Tightness, and ADR.
-- This allows you to trace exactly why a stock was included and verify the setup against the video transcript criteria.
+- **20-Point Scoring System** — Evaluates ADR%, relative strength, EMA alignment, tightness & volume
+- **Multi-Timeframe Scanning** — Simultaneous 1-month, 3-month, and 6-month momentum analysis
+- **TWS Live Integration** — Real-time market data via Interactive Brokers API with one-click chart sync
+- **Streamlit Dashboard** — Interactive web UI with charts, scoring breakdowns, and conviction tracking
+- **History & Analysis** — Save, compare, and review scan results over time
+- **Demo Mode** — Test the scanner without a live TWS connection using mock data
+- **macOS App Bundle** — Double-click launcher for quick access
 
 ---
 
-## 📟 TWS Layout Configuration (Verification Guide)
+## 🏗️ Architecture
 
-The scanner works best when integrated into a high-performance TWS Layout. While TWS does not allow full automation of layout creation via API, you can build it manually and save it for future use.
-
-### Recommended Layout Construction:
-1.  **Custom Monitor List**:
-    - Right-click in a Monitor area → **Import Symbol List**.
-    - Select [ibkr_tws/tws_watchlist.csv](file:///Users/prabhatranjan/IdeaProjects/qullamaggie_scanner/ibkr_tws/tws_watchlist.csv).
-2.  **Triple Chart Setup (Multi-Timeframe)**:
-    - Create 3 Chart windows.
-    - Set them to **Display Group 1 (Red)**.
-    - Configure Periods: **Daily (1M)**, **Weekly (3M)**, **Weekly (6M)**.
-3.  **Essential Indicators**:
-    - **EMA 10/20/50** (黃/藍/紅): Ensure colors match your visual preference for "surfing".
-    - **Volume**: Standard volume bars.
-    - **ATR (14)**: To verify the trailing stop levels provided by the scanner.
-
-### Saving your Layout:
-- Go to **File → Layout Settings → Save Settings As...**
-- This creates an XML backup of your setup. You can restore it using **File → Settings Recovery**.
-
----
-
-## ⚡ Quick Start
-
-### Step 1: Install Dependencies
-```bash
-cd /Users/prabhatranjan/IdeaProjects/qullamaggie_scanner
-pip3 install -r requirements.txt
+```
+qullamaggie_scanner/
+├── ui/
+│   └── dashboard.py          # Streamlit web dashboard
+├── ibkr_tws/
+│   ├── ib_service.py          # IBKR TWS connection & data service
+│   ├── scanner_engine.py      # Core 20-point scoring engine
+│   └── tws_watchlist.csv      # Exportable watchlist for TWS import
+├── tests/                     # Test suite (unit, integration, E2E)
+├── website/                   # Qullamaggie methodology reference materials
+├── settings.json              # Scanner configuration (thresholds, filters)
+├── requirements.txt           # Python dependencies
+├── run_decision_station.sh    # Launch script
+└── setup_app.sh               # macOS .app bundle creator
 ```
 
-### Step 2: Configure TWS API
-1. Open TWS → **Global Configuration** → **API** → **Settings**.
-2. ☑ Enable ActiveX and Socket Clients.
-3. ☑ Ensure port is **7497** (Paper) or **7496** (Live).
-4. ☐ Uncheck "Read-Only API" if you plan to execute trades (otherwise keep checked).
+---
 
-### Step 3: Launch Scanner
+## 📊 The 20-Point Scoring System
+
+Every stock is evaluated on a 0–20 scale. High scores = maximum statistical edge.
+
+| Criteria | Max Pts | What It Measures |
+|:---|:---:|:---|
+| **ADR% (Average Daily Range)** | 5 | Explosiveness — higher ADR = higher potential moves |
+| **Relative Strength** | 4 | % gain from the lowest point over 1M/3M/6M periods |
+| **EMA Alignment** | 7 | Price > 10 > 20 > 50 EMA with "surfing" proximity logic |
+| **Tightness** | 2 | Volatility contraction (coiling) — narrow range over 5 days |
+| **Volume Surge** | 2 | Recent volume expansion vs. 20-day average |
+
+### Hard Filters (Non-Negotiables)
+- **Min ADR:** 5.0% — baseline for explosive moves
+- **Min Dollar Volume:** $20,000,000/day — ensures institutional liquidity
+- **Min Price:** $5.00 — excludes penny stocks
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Python 3.10+** — [Download](https://www.python.org/downloads/)
+- **Interactive Brokers TWS** or **IB Gateway** — [Download](https://www.interactivebrokers.com/en/trading/tws.php)
+- A funded or paper trading IBKR account
+
+### 1. Clone the Repository
 ```bash
-python3 ui/scanner_app.py
+git clone https://github.com/Sensible-Analytics/qullamaggie_scanner.git
+cd qullamaggie_scanner
 ```
-Select **"★ TRUE QULLAMAGGIE SCAN ★"** and click **Start**.
 
----
-
-## � Project Structure
-- `ibkr_tws/scanner_engine.py`: The "Brain" containing the 20-point scoring logic.
-- `ui/scanner_app.py`: High-performance UI with TWS syncing and video-terminology tooltips.
-- `tests/test_robustness_e2e.py`: Mission-critical verification suite.
-
----
-
-## 🧪 Verification
-Run the robust E2E test suite to confirm logic integrity:
+### 2. Create a Virtual Environment
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate   # macOS/Linux
+# .venv\Scripts\activate    # Windows
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure TWS API
+1. Open TWS → **Global Configuration** → **API** → **Settings**
+2. ☑ Enable ActiveX and Socket Clients
+3. Set Socket Port to **7497** (Paper) or **7496** (Live)
+4. ☐ Uncheck "Read-Only API" only if you plan to execute trades
+
+### 5. Launch the Scanner
+```bash
+# Option A: Direct launch
+streamlit run ui/dashboard.py
+
+# Option B: Use the launch script
+./run_decision_station.sh
+```
+
+Select **"★ TRUE QULLAMAGGIE SCAN ★"** and click **▶ RUN SCAN**.
+
+> **💡 Tip:** Enable **Demo Mode** in the sidebar to explore the UI without a live TWS connection.
+
+---
+
+## ⚙️ Configuration
+
+Edit `settings.json` to customize scanner behavior:
+
+```json
+{
+    "ibkr": {
+        "host": "127.0.0.1",
+        "port": 7497,
+        "base_client_id": 10,
+        "timeout": 20
+    },
+    "scanner": {
+        "min_price": 5.0,
+        "min_volume": 500000,
+        "min_score": 5,
+        "min_adr": 5.0,
+        "min_volume_dollars": 20000000
+    }
+}
+```
+
+For local overrides, create a `settings.local.json` file (git-ignored) with the same structure.
+
+---
+
+## 📟 TWS Chart Setup
+
+For best results, configure your TWS charting layout to match the scanner:
+
+| Chart # | Period | Purpose |
+|:---:|:---|:---|
+| 1 | Daily (1 Month) | Entry timing & tightness check |
+| 2 | Weekly (3 Month) | Primary breakout structure |
+| 3 | Monthly (6 Month) | "Blue Sky" breakout identification |
+
+**Indicators:** EMA 10 (Yellow), EMA 20 (Blue), EMA 50 (Magenta), Volume, ATR(14)
+
+**One-Click Sync:** Link your TWS charts to **Display Group 1 (Red)**. Clicking any row in the scanner auto-updates your charts.
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run the test suite
 export PYTHONPATH=$PYTHONPATH:.
-pytest tests/test_robustness_e2e.py
+pytest tests/ -k "not playwright" --tb=short
+
+# Run with verbose output
+pytest tests/ -v -k "not playwright"
 ```
 
 ---
 
-*Disclaimer: This tool is for research purposes only. Trading involves significant risk. Follow Kristjan's risk management rules religiously (Risk 0.25-1% per trade).*
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -m "Add my feature"`
+4. Push to the branch: `git push origin feature/my-feature`
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is for **educational and research purposes only**. Trading involves significant risk of financial loss. Always follow proper risk management (risk 0.25–1% per trade as recommended by Kristjan). Past performance does not guarantee future results.

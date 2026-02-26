@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qullamaggie-scanner"
+version = "1.0.0"
+description = "Professional-grade momentum stock scanner using the Qullamaggie methodology with IBKR TWS integration"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Sensible Analytics"}
+]
+keywords = ["trading", "stocks", "momentum", "scanner", "ibkr", "swing-trading"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+dependencies = [
+    "ib-insync>=0.9.86",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "nest-asyncio>=1.5.0",
+    "matplotlib>=3.7.0",
+    "streamlit>=1.30.0",
+    "yfinance>=0.2.36",
+    "plotly>=5.18.0",
+    "lightweight-charts>=1.0.18",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "flake8",
+]
+e2e = [
+    "pytest-playwright>=0.4.4",
+    "playwright>=1.41.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Sensible-Analytics/qullamaggie_scanner"
+Issues = "https://github.com/Sensible-Analytics/qullamaggie_scanner/issues"
+
+[tool.setuptools.packages.find]
+include = ["ibkr_tws*", "ui*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
