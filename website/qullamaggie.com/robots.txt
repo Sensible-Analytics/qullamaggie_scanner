@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://qullamaggie.com/sitemap_index.xml

@@ -1,0 +1,355 @@
+How to master a setup: Episodic Pivots - Qullamaggie
+Skip to content
+Stock Trading
+How to master a setup: Episodic Pivots
+November 2, 2021
+November 2, 2021
+Posted by
+Kristjan Kullamägi
+Spread the love
+Tweet
+Most traders haven no idea what they are doing. Many of them may think they do, but they don’t. They are trading blind, essentially gambling. I was like that many years ago jumping from alert service to alert service, setup to setup, and almost no one does a deep dive into market structure and fidn setups that actually work.
+I still don’t know what the fuck I am doing at times, but at least I know more now than 10 years ago when I started out.
+Most trading problems like issues with deciding and obeying to a stop without hesitation, entries, profit taking, discipline (whatever this overused word means) and overall lack of profitability and consistency stem from not having mastered any specific setup.
+Once you understand a setup in depth you will never have these issues again. Throw away all your trading psychology books. Psychology never the problem to begin with.
+Once you master a setup, where you know dozens of variations by heart and in which market conditions the setup works well and when it doesn’t and having conviction holding through drawdowns, you will reach any financial goals you may have. Your children won’t need any financial goals to begin with, if you choose so.
+The first million is a bitch. Getting to $100M is just doing the same thing over and over again + some good bull years.
+How do you master a setup?
+I will take Episodic Pivots as an example in this post, a setup I learned from Pradeep Bonde (Stockbee), that has rewarded me several tens of millions in profits over the past couple of years alone.
+We are also approaching the juicy part of the earnings season and there will be a proliferation of these setups over the next 2-3 weeks so I thought it appropriate to go through this setup a little bit.
+I have also written previously about EP here.
+What is an EP? My definition (this may differ from Pradeeps) is a gap up of 10% or more. There has to be massive volume near the open, ideally the stock should trade the average daily volume the first 15-20 minutes or even quicker. Preferably the huge volume is already present in after-hours or pre-market. That is not always the case though.
+I rarely trade in extended hours but prefer to wait for the opening range highs, which means I will wait for the first 1-minute candle to form and closely observe the volume.
+Sometimes the big volume may come a few minutes after the open on the smaller cap names. Ideally there is heavy volume right out of the gate and I enter once the opening range highs break and many times if i bought the 1-minute highs I may add on the 5-minute highs also to get more confirmation and more size.
+Stop is always at the lows of the day. Often I miss the 1-minute opening range and I will buy the 5-minute highs or 60-minute highs. No need to be first in. You could just add through the day if the stock is acting well. Make sure your stop is no more than 1x, or maximum 1.5x the average daily range or the average true range.
+Different types of EP could be:
+-political and regulatory (look for example at the banks and the prison stocks when Trump won the election)
+-FDA and biotech related
+-contracts and partnerships
+-earnings and earnings guidance
+-sector EP (when you have a sector that is red hot, the stocks in that sector can move in gaps and make big moves without any specific news)
+I have personally found most success in earnings EP as they are easy to find and easy to understand. Biotech EPs are the most difficult and I studied biomedicine for 3 years…
+The fundamental logic for an EP is news that catches the market off guard and forces a revaluation of the stock. Also called rocket fuel. Remember, when institutions buy, they don’t buy in one day. It can take many months for them to get to their desired allocation.
+The best EPs are on stocks ones that have gone sideways for 3-6 months or more. Many times you get EP on stocks that have already made a big move from a previous EP and these can work but the failure rate is higher and the move probably won’t be as big.
+As you know, EP is one of my three main setups together with Breakouts or Parabolic Shorts.
+EP is the most infrequent (meaning the least amount of signals and noise), the one you can get the best risk/reward, and they mostly occur during a concentrated period of 3-4 weeks every quarter, meaning as a working person this makes the ultimate setup to trade.
+Every time you come across a setup that someone claims is profitable, you have to confirm that for yourself. That’s what I did with EP.
+How did I find 1000s of historic EPs? I went through all 6-7 thousands US stocks in TC2000 (no filters) on the monthly chart and just looked for stocks that hade made big moves sometime in their existence. Say 100%+ in a few months or 300% in a year or whatever and then study those stocks more closely.
+I looked up the intraday charts on eSignal which has intraday data back to the late 1990s.
+Once I found the EPs in those stocks I looked at the news in
+Briefing.com
+and the SEC website and sometimes on the companies websites. Unfortunately Briefing only shows news 5 years back nowadays and I don’t know where to get news 15-20 years ago. The good news is just studying EPs 5 years back will get you to master level.
+I built a Evernote database with thousands of instances across 4 setups that work well in the markets and have for 100+ years. None of them work all the time, the failure rate is high, but they all provide excellent risk rewards.
+This screenshot from 2015 is from Pradeep’s site where I talk about doing deep dives on parabolic shorts and EPs.
+How do you find EPs? First you need a scanner to find stocks gapping higher in extended hours, most platforms have these. Then you need yo check the news or catalyst for that move, SeekingAlpha and Finviz are good free alternatives. For earnings specifically I also use Koyfin and MarketSmith to see the earnings and sales data for the previous years and the projections/guidance for next couple of years presented in a visual matter.
+When it comes to earnings EP you want stocks that have things going for them. Ideally triple digit year over year (YoY) earnings and sales growth but mid/high double digits works really well too. Many stocks don’t have any earnings at all but many times just high sales growth and in this cycle those have worked really well too (just as they did in the late 1990s!)
+Ideally you want to see a big analyst beat (altough many smaller stocks don’t have any analysts on them) and a big guidance higher. Volume is the #1 thing to focus on.
+It will take you 3-4 earnings seasons to get good at trading EP, 5-6 if you are a moron. For me it probably took 7 or 8 earnings seasons.
+Now let’s look at some examples from the most recent earnings season. I traded some of them and I passed on some of them because they were too illiquid for my preferred size. Also note that some of them already had a second EP recently and these ones I generally tend to avoid for reasons I mentioned earlier.
+Here are some before and after screenshots. Pay attention to the volume.
+AFRM I traded both those two early EPs, the first was a partnership with AMZN and the second was earnings, both stopped me out for decent losses and now look where the stock is. Frustrating.
+The beautiful part of this method is you find stocks that have a FUNDAMENTAL REASON to go up, stocks that have rocket fuel that can generate alpha for your portfolio. Look at the VXF chart below (or IWM if you so prefer) and you will see the majority of stocks went sideways during this period where these EPs made 50-100% moves post opening range highs.
+Now please refrain from questions about different variations or “what if it closes off the highs” or “what trailing stop is the best”. Whatever questions you have about this setup it’s your duty to find it out yourself by studying many hundreds of EPs.
+Thanks and good luck!
+Related Post
+Stock Trading
+How to master a setup: Episodic Pivots
+November 2, 2021
+November 2, 2021
+Stock Trading
+Some good Tweetstorms
+May 18, 2021
+May 18, 2021
+Stock Trading
+3 TIMELESS setups that have made me TENS OF MILLIONS!
+January 8, 2021
+April 28, 2021
+Stock Trading
+NASDAQ comparison late 90’s vs today
+July 1, 2020
+April 28, 2021
+Previous Post
+Some good Tweetstorms
+59 thoughts on “
+How to master a setup: Episodic Pivots
+”
+Jakob
+November 2, 2021 at 2:57 pm
+Tack för att du delar med dig!
+Reply
+Brandi Love
+November 2, 2021 at 3:06 pm
+Ohhh EPs make me so horny!
+Reply
+PK
+November 2, 2021 at 3:23 pm
+You’re the man. Thanks for all that you do!
+Reply
+Peter
+November 2, 2021 at 3:55 pm
+Thanks for posting Kris, thorough as heck.
+Reply
+Beto
+November 2, 2021 at 4:01 pm
+Amazing info & set up, really nice, thanks for sharing.
+Reply
+Odin Hill
+November 2, 2021 at 4:15 pm
+I came across your content (stream, blog, Twitter) at the exact time in my development as a trader that I needed it, my imagination and my results are both benefiting from it, thanks!!
+Reply
+Rolands Kirpis
+November 2, 2021 at 4:29 pm
+Love this
+Reply
+Nick
+November 2, 2021 at 5:04 pm
+Really clear and a great post. Thank you for sharing your knowledge and I’m looking forward to putting in more hours and perfecting this setup.
+Reply
+Lem Gaswint
+November 2, 2021 at 6:24 pm
+Thank you! I am amazed that you are willing to share so freely! Health and happiness!
+Reply
+Julio
+November 2, 2021 at 6:40 pm
+Thank you so much for posting this Kris. I’m a big fan of yours. You rock!!!
+Reply
+bastian Heekmann
+November 2, 2021 at 6:42 pm
+Kris, you are the man! Thanks so much man.
+Reply
+Lev karasin
+November 2, 2021 at 7:10 pm
+Thanks for posting this. It helps. Now time to study the charts 🙏.
+Reply
+Steve Sheppard
+November 2, 2021 at 8:01 pm
+Kris,
+I can’t thank you enough for taking the time to share your knowledge that you obviously have put a great deal of effort and work into over the years. The information “you again” generously have shared with other aspiring traders “such as myself” helps immensely with the learning process and gives some shore footed direction through the minefield of trying to become a somewhat successful trader.
+Again respectfully, a great many thanks for taking the time.
+Regards.   Steve Sheppard
+Reply
+Randall VN
+November 2, 2021 at 8:42 pm
+Well written and gives me a plan and something specifc to study.
+I appreciate your efforts in providing this blue print to work from.
+Thank you!
+Reply
+Champ Dunton
+November 2, 2021 at 9:29 pm
+@Qullamaggie thanks for the blog.  Starting my deep dive $A to $Z tonight.  I have seen a these EP moves in my 1 month performance scans.  Hopefully I can get in ahead of the curve in the coming earnings seasons.
+Reply
+gagabubu
+November 2, 2021 at 9:31 pm
+Thanks Kris!
+Reply
+Santhosh
+November 2, 2021 at 9:38 pm
+Thanks Kristjan, excellent post. You are an inspiration!
+Now its for us to do a deep dive and study as many stocks as possible.
+Reply
+Trade 2 Swing
+November 2, 2021 at 10:48 pm
+Hi Kristjan,
+Thanks for sharing this blog..there is sooooooo much subtle details. Me coming from WON school and preached by EG  to fine tune my skills, this is a holly grail blog. I am surprised why no one has posted a comment here yet but I see tons of tweets..hmm.  All secrets are here people – read, re-read, do a deep dive and practice it. I am fixing one of my weakness after reading your blog. Ty sir!!
+Reply
+Manchu Emperor
+November 2, 2021 at 11:30 pm
+A sincere thank you for sharing your knowledge and streaming so often. This is great update to your previous explanations of Episodic Pivots and very helpful. Because of you, I have been able to almost double my account size in just 3 months of reading from your reading lists, watching your streams, and studying the content on your website.
+Thank you again for helping me and my family take a step forward toward financial independence.
+Reply
+Dan
+November 2, 2021 at 11:50 pm
+Your work ethic is inspiring. Thank you for giving so much to the community. I stopped day trading and had my most profitable month in 3 years. Why couldn’t I have found you 4 accounts ago.
+Reply
+JP
+November 3, 2021 at 12:30 am
+Excellent!
+Reply
+@GapUp2
+November 3, 2021 at 12:35 am
+Thank you for taking the time to write this and all that you do for the community.
+Reply
+BigboyAfrica!
+November 3, 2021 at 4:13 am
+Kristjan you are amazing! I have admired your work for a while now since the interview you ” with chat with Traders.” you are a savior to many traders; in other words, brother you are the real deal! furthermore, I am also enjoying my deep dive sessions; countless hours -countless hours but I enjoy it, sometimes I have to remind myself to eat lol.
+Thank you so much for sharing this Gem!
+BigboyAfrica! aka TraderH2O
+Reply
+enzo
+November 3, 2021 at 6:56 am
+Hello and thank you for what you do. The stop, once you have entered, in the following days when the moving averages are far from the prices, do you move it every day below the low of the day before or do you always keep the stop on the first day? Once the averages have reached the price, for example upst and amba, have they dropped below 20 in which case do you only go out a partial? Thanks again
+Reply
+Dave K
+November 3, 2021 at 8:38 am
+Thank you Kristjan.
+Excellent post. I will be doing a deep dive on this.
+I was already studying EP’s but the information you’ve provided here is going to be great help.
+Reply
+Alex
+November 3, 2021 at 10:28 am
+Thank you Kris.
+Reply
+Sam
+November 3, 2021 at 11:13 am
+Hi Kris,
+I just wanted to thank you for dropping these life changing gems on the internet for FREE. I can’t begin  to explain how I’ve bounced around from different discord groups, and YouTube channels promising the next “BIG” thing but have only broken even. It wasn’t until I found your blog (and how to make money in stocks) that I really started learning where I was going wrong and started building my own trade ideas and conviction.! You have truly changed my stock trading and bank account :D! Thank you for all that you do! From being humble and having a no BS attitude… and best off all not trying to sell stock alerts. You are the real deal. May God Bless You!
+Reply
+Tony
+November 4, 2021 at 3:43 pm
+If you get stopped out but are still interested in the EP.  Do you re-enter if the price takes out the original stop, open price or the ORH?
+Reply
+Anders
+November 5, 2021 at 5:15 am
+Thank you for another post containing such valuable information. I honestly can’t believe that i (we) are getting this for free.
+Do you have any tips for US brokers when you have a smaller account size? RIght now i am sticking to Avanza since i am only in the 300 tkr (SEK) range. I noticed a lot of the US brokers that are recommended has 100k dollar as minimum.
+Reply
+Tao Ji
+November 8, 2021 at 4:13 pm
+Thank you Kris. I have a question about your remarks onthe chart. What do those numbers mean? on the AMBA chart there are “475/28 +112 +54”, “483/58 +188+35”? Thank you!
+Reply
+joe smoe
+November 14, 2021 at 10:29 am
+You and me both have the same question.  Did any body respond?
+Reply
+Rojda
+November 8, 2021 at 4:20 pm
+You don’t have to do this, but you do it anyway. Thank you for your generosity. I really want to see you hit 1bn – and invite your followers to a big midsummer party.
+Reply
+james faulkner
+November 10, 2021 at 4:02 am
+Hey I see in AFRM you bought $100 calls so do u regularly buy calls with episodic pivots or was it just this instance. Also for beginners do u recommend buying calls or should we stick to equity only?
+Reply
+Kristjan Kullamägi
+November 10, 2021 at 3:34 pm
+Where did you get this info from? I don’t trade options
+Reply
+Ben
+November 10, 2021 at 5:42 pm
+Kris, it says on your chart for AFRM $100 Calls
+Reply
+Kristjan Kullamägi
+November 17, 2021 at 2:57 am
+Yes it’s just a note
+Reply
+Ben
+November 10, 2021 at 5:44 pm
+13,500 Sept $100 Calls
+Reply
+Beñat
+November 11, 2021 at 6:01 am
+Hi Kris,
+Mastering a setup, is definitelly hard, but first you need to find them.
+When you say:
+“First you need a scanner to find stocks gapping higher in extended hours, most platforms have these”.
+The only variable you use to search for your setup candidates is this one above and then just go one by one over all the results?
+I find plenty of information about setups but not so much about the propper variable specifications on the screeners.
+Thanks
+Reply
+theredbeard_
+November 11, 2021 at 8:56 pm
+Another great FREE website to filter out potential EPs before market opens.
+https://www.thestockcatalyst.com/NasdaqPMEarningsMovers?TopGaining-sort=ExtHoursPriceDiffPercentage+asc
+Thanks for everything Kris!
+Reply
+flow
+November 13, 2021 at 1:49 am
+thank you Kris!
+Reply
+joe smoe
+November 14, 2021 at 10:27 am
+Does anybody know what those /XX numbers mean?  For example on the AFRM chart he has /98 over December and /71 over the september area.  I am assuming it is some percent change but change of what?  On other charts he has two /xx   /xx over the same date.  They are always presented over an earnings report.
+Reply
+Matthew
+November 21, 2021 at 4:13 pm
+EPS and Sales growth Y/Y.
+Reply
+Matthew Thornton
+November 15, 2021 at 5:49 pm
+Thank you Kristjan!
+Anybody know a good source for intraday charts that go back more than a couple years other than eSignal? TradingView does about 18 months.
+Reply
+Juergen
+November 16, 2021 at 3:22 pm
+Hi Kristjan,
+thanks for sharing all this and my deepest respect for what you have achieved. Would be great if you could answer a question from my side. Why you additionally use Sterling Trader when you have the Interactive Brokers trading software? What benefits do you get from the Sterling trading software? I am struggling for about 10 years with leveraged index trading and are just about to begin understanding your approach. Thx a lot!
+Reply
+ethan
+November 17, 2021 at 5:02 pm
+I got shake out in the affirm too
+Reply
+Marcus Eriksson
+December 25, 2021 at 3:47 pm
+Tack Kristjan! Tittar, noterar och lär mig. Ska försöka ge mig på svenska börsen nästa år och studera än mer 🙂
+Reply
+Eddie Zimmermann
+January 6, 2022 at 1:24 am
+Just wondering what could count as a market catalyst for the IWM like earnings would a stock?
+Reply
+CHAOS_ow
+January 23, 2022 at 4:18 pm
+Thanks for this article. Long-time follower as well and definitely appreciate you providing open/free and no-nonsense approach. There’s alot of distractions out there and reading your blogs always help me focus on the important things. I’ve deciphered through Stockbee for awhile but think I’m ready to do my own deep dive now. Thanks for the guidance!
+Reply
+Henrik Christensen
+February 10, 2022 at 3:43 pm
+Dags för en ny post? Har hänt mycket under 2022 ! 😀
+Reply
+Paper Trading Platforms – 1 Gigantic Myth
+March 2, 2022 at 12:19 pm
+[…] to expedite the time it takes to find patterns out there. For instance, wealthy person dealer, Kristjan Qullamaggie discovered self assurance through uncovering hundreds of examples of gappers. Here’s what he […]
+Reply
+thomas
+April 21, 2022 at 4:45 pm
+Hi Kristjan
+I have been curious for a while now about one aspect of your approach to deep dives:
+Do you focus on those instances of setups that have strong follow-through or do you try to note down all setups?
+I’m doing a deep dive myself, but it seems to me I should be very careful with regard to hindsight bias.
+Hope to hear your input here
+Reply
+Paper Trading Platforms – 1 Gigantic Myth - FileHog.com
+June 5, 2022 at 11:58 am
+[…] the time it takes to discover patterns in the market. For example, multi-millionaire trader, Kristjan Qullamaggie found confidence by uncovering thousands of examples of gappers. Here’s what he has to say about […]
+Reply
+Paper Trading Platforms – 1 Gigantic Myth | The Meta Future
+June 8, 2022 at 1:24 pm
+[…] the time it takes to discover patterns in the market. For example, multi-millionaire trader, Kristjan Qullamaggie found confidence by uncovering thousands of examples of gappers. Here’s what he has to say about […]
+Reply
+Jemiah
+December 15, 2022 at 3:28 pm
+Thanks Kristjan! This is excellent info.
+Reply
+Kelly Cope Dunn
+January 22, 2023 at 5:49 pm
+Do you use the P/E calculation that O’Neil used to predict future of growth stocks in next 6-18 months?
+Reply
+Luigi
+February 1, 2023 at 10:08 pm
+Hey Kris, how do you set your risk for Red to Green moves? Sometimes the distance from low of day is way over ATR and ADR because of the big downside move in the morning. However, the big comeback push indicates that the stock could be strong. Do you still set your stop at low of day disregarding the ATR or do you set your stop at some other level like the open or something?
+Reply
+Dave Keyes
+May 3, 2023 at 6:00 pm
+5/3/2023  $IMGN  O/R range highs on 5 min. Sold into 12.75.    Same principles but on an hourly chart with a 5 or 15 minute entry.  Swing trading is where it’s at for sure but not looking good for that style now. Thank you for your time and willingness to share your journey.    “Study the patterns and you will find your own setups”
+Thanks you very much man.
+Reply
+WIJ
+May 13, 2023 at 11:00 pm
+Hey Kris, is low of day still your stop when a stock goes lower in the morning then recovers and goes red/green later in the day? Like UPST and ASAN from the examples above.
+Reply
+graliontorile
+June 8, 2023 at 3:52 am
+I’ll right away clutch your rss feed as I can’t to find your e-mail subscription link or newsletter service. Do you’ve any? Please permit me recognize in order that I may subscribe. Thanks.
+Reply
+Leave A Comment
+Cancel reply
+Save my name, email, and website in this browser for the next time I comment.
+Post Comment
+Follow Me
+How to master a setup: Episodic Pivots
+Kristjan Kullamägi
+Some good Tweetstorms
+Kristjan Kullamägi
+3 TIMELESS setups that have made me TENS OF MILLIONS!
+Kristjan Kullamägi
+NASDAQ comparison late 90’s vs today
+Kristjan Kullamägi
+Natural gas multibaggers
+Kristjan Kullamägi

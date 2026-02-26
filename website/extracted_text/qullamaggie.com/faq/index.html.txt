@@ -1,0 +1,167 @@
+Frequently Asked Questions - Qullamaggie
+Skip to content
+Frequently Asked Questions
+Click on any of the questions below to expand the answer:
+Why does it say paper/practice on top of your charting software when you stream? Are you paper trading?
+No, I don’t paper trade. That’s my CHARTING platform and I don’t use that to trade.
+Other than reading this FAQ, what other must do’s are there?
+Going to my Twitter and watching the videos in the pinned tweet and watching any video on my Youtube/Twitch what has “Swing trading school” in the headline. Also typing !youtube in my Twitch chat.
+What is your charting platform?
+TC2000.
+What is your trading software?
+Sterling Trader.
+What broker do I use?
+Centerpoint Securities and Interactive Brokers.
+How to navigate your streams and videos? What is what on your charts?
+Where do I live?
+Stockholm, Sweden.
+Can you open a margin account in the U.S. as a non-resident/citizen?
+Yes.
+What is the local time in Sweden during U.S. market hours?
+15.30-22.00 (3.30PM to 10PM).
+What is the Average Daily Range (ADR) in TC2000 and what’s the formula for it?
+It’s the average daily range in % over the past 20 sessions.
+100*((H0/L0+H1/L1+H2/L2+H3/L3+H4/L4+H5/L5+H6/L6+H7/L7+H8/L8+H9/L9
++H10/L10+H11/L11+H12/L12+H13/L13+H14/L14+H15/L15+H16/L16+H17/L17+H18/L18+H19/L19)/20
+-1)
+For
+TradingView
+the formula can be found here:
+https://uk.tradingview.com/script/6KVjtmOY-ADR-Average-Daily-Range-by-MikeC-AKA-TheScrutiniser/
+How do you spend your mornings leading up to market hours/How do you prep your day?
+Usually wake up around 8-9am, do some scanning in bed and catch up with Twitter before I get up.
+Work out 10-12 (ish)
+Lunch around 12 (ish). I do intermittent fasting so no breakfast.
+13 Start watching pre-market movers and checking my portfolio if there are any notable movers..
+During earnings season only: 14/14:30 start checking for earnings winners that are gapping up.
+15 I sit my ass in front of the computer and check for big gappers and what’s moving them and prepare for streaming.
+How big are your trading accounts?
+$17M as of August 4, 2020.
+$22M as of October 5, 2020.
+$29M as of December 18, 2020.
+$34M as of December 31, 2020.
+$39M as of January 7, 2021.
+$59M as of February 8, 2021.
+It’s like a videogame at this moment. This is what happens when you have your shit together and there is a market bubble.
+$82M as of March 01, 2021.
+How much money did I start trading with?
+Between $2K and $5K about 3-4 times since I blew up a lot initially in 2011/2012.
+Who were your trading mentors and where did you learn how to trade?
+I learned from a lot of people; I was in many different chat rooms and trading communities, went to seminars, read a lot of books, articles etc. Picked up bits and pieces and developed my own thing that fits my own personality.
+I spent THOUSANDS of hours looking a big winning stocks over the past 100 years and figured out the patterns that happen over and over again and what fuels those big moves.
+How can I become a great trader?
+This is what YOU need to to if you want to become a good trader. No excuses, no shortcuts:
+Unsubscribe all financial news. Turn off CNBC etc. They are not your friend, they are there to entertain/scare you.
+Look back at all listed U.S. stocks, check the charts of every mover as long back as you can. Look for common patterns that occur over and over again over many different decades. Build a chart database in Evernote, OneNote or whatever. Spend at least a few hundred hours doing this. Memorize those chart patterns and other commonalities. Congrats, you just found your edge. Now start trading those patterns.
+How were you able to short $XYZ stock, it was hard to borrow/restricted everywhere I looked?
+I have access to very good (and sometimes very expensive) locates through my brokers where most other retail brokers do not.
+What and how many setups do you trade?
+I trade 3 setups only (and a few varations of those setups).
+Those are:
+Common Breakout, a video of that can be found below and this is the method I spend a lot of time teaching on the Twitch stream.
+Parabolic short
+Episodic Pivot
+How can I learn to trade like you and make millions?
+Follow my stream live daily or watch on Twitch/Youtube later.
+I also have uploaded Swing Trading School videos on Youtube where I teach a specific swing trading setup. If you master that one setup you can make tens of millions.
+IF YOU WANT TO MAKE MILLIONS CLICK HERE (this is compiled by my moderator, not my channel):
+https://www.youtube.com/playlist?list=PLV4rgdMPi5CgtRwngmf79U2G5LA066LNa
+My own YouTube can be found at bottom of the page.
+How many monitors do you have and what does it look like?
+5 monitors + Loke, my cat.
+What size are the monitors and what’s on them when you trade?
+Left –
+27″ 1440p Asus gaming monitor, that’s where I put TC2000 when I stream.
+Middle – 2 x 34″ 1440p Dell widescreen. TC2000 when I don’t stream.
+Right –
+14″ 4K laptop with Sterling Trader and IB platform on 2 different desktops that I switch between with hotkeys.
+Upper right –
+42″ 4K Dell with eSignal intraday charts that I only use at the market open.
+I’ve been using pretty much the same setup the past 6-7 years with little changes except I keep updating the monitors now and then.
+Do you do private/individual coaching sessions?
+No time and resources. Don’t ask me.
+What are my biggest individual winning and losing days?
+$1.7M gain on $TVIX short March 2020, bounced late day, ended up $1.3M.
+$1.5M loss on $KODK accidental short provided here:
+Video of the whole debacle is here:
+https://youtu.be/VtBYmOR83oU?t=3755
+starts at 1:02:35. (Good news is it took me 5 trading sessions to make it back).
+Here’s a bonus screenshot from my 2 main accounts on Feb 09 2021. This is what happens in a bubble and you have mastered 1-3 setups to trade:
+Do you use mental or hard stops?
+Both. When a stock is close to my stop I use hard stops so I don’t have to watch it constantly. I always use market stops, never limit stops.
+Do you ever ignore/override stops and why?
+Very rarely, but sometimes yes. If you made less than a few million in the markets you should never do that. If you have, you know the few and rare exceptions.
+What other trading services/platforms do I use?
+eSignal for intraday charts near the market open, but not every day.
+MarketSmith for EPS/revenue numbers, KoyFin for EPS/revenue estimates for the next few years.
+Seeking Alpha for reading up on companies and also news/earnings reports.
+TheFly for news/earnings reports.
+What’s the capital gains tax in Sweden and also don’t you have to pay taxes in the U.S.?
+If you live in Sweden and trade U.S. markets you pay capital gains taxes in Sweden which is 30%.
+What do you think of options trading or CFDs (for Europeans)?
+It’s like poison. Avoid. Don’t touch unless you’ve made a few million trading stocks. Once you’ve made a few millions trading stocks, you won’t need that other stuff.
+Having said that, options can be value add in certain situations and some people I know conistently succeed within those situations.
+If the fail rate for stock traders is 95%+, the failrate for options and CFD traders are 99%.
+How much of your account do you risk on your trades?
+Depends on the liquidity of the stock and conviction on the trade. Most of the time 0.3-0.5%. Rarely more than 1%.
+How large are your positions relative to account size?
+Generally 5%-25% with most being around 10-15%. Depends on liquidity of the stock and conviction on the trade and overall riskiness of the stock.
+What’s my winrate?
+25% in 2019.
+What are my annual returns?
+My CAGR 2013-2019 is 268%.
+This is the kind of returns you need every year with a small account to grow from a few thousand to tens of millions.
+Where does a newbie start “trading preschool” to stop following alert services and chase stocks and methods?
+Watch and read my content. If you don’t like my content, read below.
+What other chatrooms/trading communities do you recommend?
+For swing trading:
+http://www.stockbee.biz
+run by Pradeep Bonde. He also has a public blog
+http://www.stockbee.blogspot.com
+For daytrading long/short
+http://www.investorsunderground.com
+run by Nathan Michaud.
+Another good daytrading community is run by Dan Shapiro at
+http://www.accessatrader.com
+I am a paid member of Stockbee since many years back but have no affiliation with any of them.
+Difference between trading and gambling?
+Most of the time not much. Most people treat trading like gambling. A few elite traders have spend thousands of hours studying the markets and figuring out what works and exploiting their edge. That is real trading.
+What are your largest drawdowns?
+I usually have my biggest losses when I short things. 50% in 2014 is my biggest drawdown %-wise. I try to contain them at 15-20%, which happen a few times per year.
+What are your favorite trading books?
+These are MUST read all of them.
+Reminiscences of a Stock Operator
+– by Edwin Lefévre
+How to Make Money in Stocks: A Winning System in Good Times and Bad
+– by William O’Neil
+Stock Market Wizards books (there are 4 or 5 of them)
+– by Jack Schwager
+How I Made $2,000,000 in the Stock Market
+– by Nicolas Darvas
+Trade Like a Stock Market Wizard & Trade Like a Champion
+– by Mark Minervini
+Why is the picture blurry/low quality on your latest Youtube upload?
+It takes several hours for Youtube to process new videos, try again later.
+All my videos are uploded in 1440p.
+Why did you switch from daytrading to swing trading?
+I realized when stocks make big moves it usually takes weeks and months. Why daytrade when you can try to catch big moves instead? Much less work for more money AND more scalable.
+You don’t have to be at the screens non-stop, in fact, you can do other stuff for majority of the trading day. To make millions in trading you don’t have to be in front of the screen during majority of the market session.
+Just my personal observations and preference.
+Why don’t you show your real time Profit/Loss on the screen?
+How’s that going to help you? You want P&L, there’s a few of them higher up on this page. I can only stream one monitor and I want to stream the important stuff. I want people to learn solid trading setups and stand on their own legs (or in trading, more like sitting on their own asses). I don’t want a herd that blindly follows me around in trades jerking off to my personal P&L.
+Do you trade anything other than U.S. stocks?
+Yes, I also trade the U.S. ETFs.
+Where did I go to school and what did I study?
+Karolinska Institutet in Stockholm, Sweden. Studied Biomedical Laboratory Science for 3 years. Started trading in the final few months of school.
+Let’s get better together!
+Follow Me
+How to master a setup: Episodic Pivots
+Kristjan Kullamägi
+Some good Tweetstorms
+Kristjan Kullamägi
+3 TIMELESS setups that have made me TENS OF MILLIONS!
+Kristjan Kullamägi
+NASDAQ comparison late 90’s vs today
+Kristjan Kullamägi
+Natural gas multibaggers
+Kristjan Kullamägi

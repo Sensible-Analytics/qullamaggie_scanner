@@ -1,0 +1,13 @@
+ib-insync==0.9.86
+pandas>=2.0.0
+numpy>=1.24.0
+nest-asyncio>=1.5.0
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+matplotlib>=3.7.0
+streamlit>=1.30.0
+yfinance>=0.2.36
+plotly>=5.18.0
+lightweight-charts>=1.0.18
+pytest-playwright>=0.4.4
+playwright>=1.41.0

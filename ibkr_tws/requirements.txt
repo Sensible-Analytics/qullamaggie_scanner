@@ -1,0 +1,4 @@
+ib-insync==0.9.86
+pandas>=2.0.0
+numpy>=1.24.0
+nest-asyncio>=1.5.0

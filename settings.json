@@ -1,0 +1,19 @@
+{
+    "ibkr": {
+        "host": "127.0.0.1",
+        "port": 7497,
+        "base_client_id": 10,
+        "timeout": 20
+    },
+    "scanner": {
+        "min_price": 5.0,
+        "min_volume": 500000,
+        "min_score": 5,
+        "lookback_days": 100,
+        "atr_period": 14,
+        "atr_stop_multiplier": 1.5,
+        "stop_loss_type": "hybrid",
+        "min_adr": 5.0,
+        "min_volume_dollars": 20000000
+    }
+}
