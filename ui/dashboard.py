@@ -134,6 +134,9 @@ def draw_plotly_chart(res):
 
 # Sidebar - Command Center
 st.sidebar.title("🚀 Command Center")
+data_source_label = st.sidebar.radio("📡 Data Source", ["IBKR (Live Data, requires TWS)", "Yahoo Finance (Free EOD Data, no keys)"], index=0)
+data_source = 'yahoo' if 'Yahoo' in data_source_label else 'ibkr'
+
 demo_mode = st.sidebar.checkbox("🛠️ Demo Mode (Mock Data)", value=st.session_state.engine.demo_mode)
 st.session_state.engine.demo_mode = demo_mode
 
@@ -182,15 +185,18 @@ min_price = st.sidebar.slider("Min Price ($)", 1.0, 50.0, 5.0, help="Exclude pen
 min_score = st.sidebar.slider("Min Setup Score", 0, 20, 8, help="Quality threshold.")
 
 if st.sidebar.button("▶ RUN SCAN", width='stretch'):
-    config = {'min_adr': min_adr, 'min_score': min_score, 'min_price': min_price}
+    config = {'min_adr': min_adr, 'min_score': min_score, 'min_price': min_price, 'data_source': data_source}
     
     # Connection Check
     can_run = True
     symbols = []
-    if not st.session_state.ib_service.is_connected() and market in dynamic_options:
+    if data_source == 'ibkr' and not st.session_state.ib_service.is_connected() and market in dynamic_options:
         st.error("❌ TWS is not connected. Dynamic scans require an active TWS/Gateway connection.")
         st.info("Go to the **⚙️ Connectivity** tab and click 'Reconnect' to establish a link.")
         can_run = False
+    elif data_source == 'yahoo' and market in dynamic_options:
+        st.warning("⚠️ Dynamic scanners require TWS live data. Falling back to the 'US Tech Leaders' universe for Yahoo Finance mode.")
+        market = "US Tech Leaders"
 
     if can_run:
         if market in dynamic_options:

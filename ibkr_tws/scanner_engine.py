@@ -124,37 +124,50 @@ class ScannerEngine:
                 }
                 self.trace_results.append(trace_entry)
 
-                # Resolve exchange and currency from config or default to US
-                exchange = config.get('exchange', 'SMART')
-                currency = config.get('currency', 'USD')
-                stock = Stock(symbol, exchange, currency)
-                
-                # Qualify contract synchronously
-                qualified = ib.qualifyContracts(stock)
-                if not qualified:
-                    stats['invalid_contract'] += 1
-                    trace_entry['status'] = 'Invalid Contract'
-                    self.update_progress(i, total, symbol, 'error', 'Invalid contract')
-                    continue
+                if config.get('data_source', 'ibkr') == 'yahoo':
+                    # Free Data Mode - Fetch from Yahoo Finance
+                    df = self.get_historical_data_yf(symbol, period='1y', interval='1d')
+                    
+                    if df is None or len(df) < 50:
+                        stats['insufficient_data'] += 1
+                        trace_entry['status'] = 'Insufficient Data'
+                        self.update_progress(i, total, symbol, 'error', 'Insufficient data (yf)')
+                        continue
+                else:
+                    # IBKR Live Data Mode
+                    # Resolve exchange and currency from config or default to US
+                    exchange = config.get('exchange', 'SMART')
+                    currency = config.get('currency', 'USD')
+                    stock = Stock(symbol, exchange, currency)
+                    
+                    # Qualify contract synchronously
+                    qualified = ib.qualifyContracts(stock)
+                    if not qualified:
+                        stats['invalid_contract'] += 1
+                        trace_entry['status'] = 'Invalid Contract'
+                        self.update_progress(i, total, symbol, 'error', 'Invalid contract')
+                        continue
 
-                # Request historical data
-                bars = ib.reqHistoricalData(
-                    stock,
-                    endDateTime='',
-                    durationStr=f"{config.get('lookback_days', 100)} D",
-                    barSizeSetting='1 day',
-                    whatToShow='TRADES',
-                    useRTH=True,
-                    formatDate=1
-                )
-                
-                if not bars or len(bars) < 50:
-                    stats['insufficient_data'] += 1
-                    trace_entry['status'] = 'Insufficient Data'
-                    self.update_progress(i, total, symbol, 'error', 'Insufficient data')
-                    continue
-                
-                df = util.df(bars)
+                    # Request historical data
+                    bars = ib.reqHistoricalData(
+                        stock,
+                        endDateTime='',
+                        durationStr=f"{config.get('lookback_days', 100)} D",
+                        barSizeSetting='1 day',
+                        whatToShow='TRADES',
+                        useRTH=True,
+                        formatDate=1
+                    )
+                    
+                    if not bars or len(bars) < 50:
+                        stats['insufficient_data'] += 1
+                        trace_entry['status'] = 'Insufficient Data'
+                        self.update_progress(i, total, symbol, 'error', 'Insufficient data')
+                        continue
+                    
+                    df = util.df(bars)
+                    ib.sleep(0.05) # Respect IBKR pacing
+
                 metrics, reason = self.calculate_metrics(df, symbol, config)
                 
                 # Update trace entry with metrics found
@@ -179,8 +192,6 @@ class ScannerEngine:
                         stats[f"{reason}_filtered"] += 1
                         trace_entry['status'] = f"Filtered ({reason})"
                     self.update_progress(i, total, symbol, 'filtered', reason if reason else 'Below threshold')
-                
-                ib.sleep(0.1) # Respect rate limits
                 
             except Exception as e:
                 logging.error(f"Error scanning {symbol}: {e}", exc_info=True)

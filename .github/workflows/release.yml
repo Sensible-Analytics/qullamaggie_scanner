@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  source_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,17 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
 
-      - name: Build package
+      - name: Build python packages
         run: python -m build
 
-      - name: Create zip archive
+      - name: Create source archive
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
-          zip -r "qullamaggie-scanner-${VERSION}.zip" \
-            ibkr_tws/ ui/ tests/ website/ \
+          zip -r "qullamaggie-scanner-${VERSION}-source.zip" \
+            ibkr_tws/ ui/ tests/ website/ data/ \
             settings.json requirements.txt \
             README.md LICENSE \
-            run_decision_station.sh setup_app.sh \
+            run_decision_station.sh setup_app.sh build_desktop_apps.py \
             pyproject.toml \
             -x "*.pyc" "__pycache__/*" ".pytest_cache/*"
 
@@ -44,4 +44,56 @@ jobs:
           generate_release_notes: true
           files: |
             dist/*
-            qullamaggie-scanner-*.zip
+            qullamaggie-scanner-*-source.zip
+
+  desktop_apps:
+    needs: source_release
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset_name: qullamaggie-scanner-linux.tar.gz
+          - os: windows-latest
+            asset_name: qullamaggie-scanner-windows.zip
+          - os: macos-latest
+            asset_name: qullamaggie-scanner-macos.zip
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Desktop App
+        run: python build_desktop_apps.py
+
+      - name: Package Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cd dist
+          tar -czvf ../${{ matrix.asset_name }} QullamaggieScanner
+
+      - name: Package Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          Compress-Archive -Path dist\QullamaggieScanner -DestinationPath ${{ matrix.asset_name }}
+
+      - name: Package macOS
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd dist
+          zip -r ../${{ matrix.asset_name }} QullamaggieScanner.app
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.asset_name }}
