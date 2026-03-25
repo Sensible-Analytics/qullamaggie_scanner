@@ -13,38 +13,36 @@ export default function DetailPanel() {
 
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
-      height: 400,
+      height: 350,
       layout: {
-        background: { color: '#ffffff' },
-        textColor: '#333333',
+        background: { color: '#111111' },
+        textColor: '#a1a1aa',
       },
       grid: {
-        vertLines: { color: '#f0f0f0' },
-        horzLines: { color: '#f0f0f0' },
+        vertLines: { color: '#1a1a1a' },
+        horzLines: { color: '#1a1a1a' },
       },
       crosshair: {
         mode: 1,
       },
       rightPriceScale: {
-        borderColor: '#cccccc',
+        borderColor: '#2a2a2a',
       },
       timeScale: {
-        borderColor: '#cccccc',
+        borderColor: '#2a2a2a',
         timeVisible: false,
       },
     });
 
-    // Add candlestick series
     const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: '#26a69a',
-      downColor: '#ef5350',
-      borderUpColor: '#26a69a',
-      borderDownColor: '#ef5350',
-      wickUpColor: '#26a69a',
-      wickDownColor: '#ef5350',
+      upColor: '#22c55e',
+      downColor: '#ef4444',
+      borderUpColor: '#22c55e',
+      borderDownColor: '#ef4444',
+      wickUpColor: '#22c55e',
+      wickDownColor: '#ef4444',
     });
 
-    // Format data for lightweight charts
     const candleData = stock.raw_data.dates.map((date, i) => ({
       time: date,
       open: stock.raw_data.open[i],
@@ -55,21 +53,17 @@ export default function DetailPanel() {
 
     candleSeries.setData(candleData);
 
-    // Add EMA lines
     const ema10Series = chart.addSeries(LineSeries, {
-      color: 'blue',
+      color: '#3b82f6',
       lineWidth: 1,
-      title: 'EMA 10',
     });
     const ema20Series = chart.addSeries(LineSeries, {
-      color: 'orange',
+      color: '#f59e0b',
       lineWidth: 1,
-      title: 'EMA 20',
     });
     const ema50Series = chart.addSeries(LineSeries, {
-      color: 'red',
+      color: '#a855f7',
       lineWidth: 1,
-      title: 'EMA 50',
     });
 
     const ema10Data = stock.raw_data.dates.map((date, i) => ({
@@ -89,9 +83,8 @@ export default function DetailPanel() {
     ema20Series.setData(ema20Data);
     ema50Series.setData(ema50Data);
 
-    // Add volume series
     const volumeSeries = chart.addSeries(HistogramSeries, {
-      color: '#26a69a',
+      color: '#22c55e',
       priceFormat: {
         type: 'volume',
       },
@@ -109,15 +102,14 @@ export default function DetailPanel() {
       time: date,
       value: stock.raw_data.volume[i],
       color: stock.raw_data.close[i] >= (stock.raw_data.close[i - 1] || stock.raw_data.close[i]) 
-        ? 'rgba(38, 166, 154, 0.5)' 
-        : 'rgba(239, 83, 80, 0.5)',
+        ? 'rgba(34, 197, 94, 0.5)' 
+        : 'rgba(239, 68, 68, 0.5)',
     }));
 
     volumeSeries.setData(volumeData);
 
     chart.timeScale().fitContent();
 
-    // Handle resize
     const handleResize = () => {
       if (chartContainerRef.current) {
         chart.applyOptions({
@@ -137,70 +129,62 @@ export default function DetailPanel() {
   if (!stock) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h2 className="text-2xl font-bold">{stock.symbol}</h2>
-          <p className="text-gray-600">{stock.date}</p>
+    <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+      <div className="p-4 border-b flex items-center justify-between" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-xl font-bold" style={{ color: 'var(--accent-green)' }}>
+            {stock.symbol}
+          </span>
+          <span className="font-mono text-2xl font-bold">
+            ${stock.price.toFixed(2)}
+          </span>
+          <span className={`font-mono px-2 py-0.5 rounded text-sm ${stock.score >= 15 ? 'bg-green-900/50 text-green-400' : stock.score >= 10 ? 'bg-yellow-900/50 text-yellow-400' : 'bg-red-900/50 text-red-400'}`}>
+            {stock.score}/20
+          </span>
         </div>
-        <div className="text-right">
-          <p className="text-3xl font-bold">${stock.price.toFixed(2)}</p>
-          <p className="text-lg">
-            Score: <span className="font-bold">{stock.score}/20</span>
-          </p>
-        </div>
-      </div>
-
-      {/* Chart */}
-      <div ref={chartContainerRef} className="w-full h-96 mb-6"></div>
-
-      {/* Metrics Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gray-50 p-3 rounded">
-          <p className="text-sm text-gray-500">ADR%</p>
-          <p className="text-xl font-semibold">{stock.adr.toFixed(2)}%</p>
-        </div>
-        <div className="bg-gray-50 p-3 rounded">
-          <p className="text-sm text-gray-500">RS Momentum</p>
-          <p className="text-xl font-semibold">{stock.rs_pct.toFixed(0)}%</p>
-        </div>
-        <div className="bg-gray-50 p-3 rounded">
-          <p className="text-sm text-gray-500">Suggested Stop</p>
-          <p className="text-xl font-semibold">${stock.suggested_stop.toFixed(2)}</p>
-        </div>
-        <div className="bg-gray-50 p-3 rounded">
-          <p className="text-sm text-gray-500">R:R Ratio</p>
-          <p className="text-xl font-semibold">{stock.rr_ratio.toFixed(2)}</p>
+        <div className="flex items-center gap-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+          <span>EMA 10 <span style={{ color: '#3b82f6' }}>━</span></span>
+          <span>EMA 20 <span style={{ color: '#f59e0b' }}>━</span></span>
+          <span>EMA 50 <span style={{ color: '#a855f7' }}>━</span></span>
         </div>
       </div>
 
-      {/* Lineage Details */}
-      <div className="border-t pt-4">
-        <h3 className="font-semibold mb-2">Scoring Breakdown</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-          {Object.entries(stock.lineage).map(([key, value]) => (
-            <div key={key} className="flex justify-between">
-              <span className="text-gray-600">{key}:</span>
-              <span className="font-medium">{value}</span>
-            </div>
-          ))}
+      <div ref={chartContainerRef} className="w-full h-[350px]"></div>
+
+      <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>ADR%</p>
+          <p className="font-mono font-semibold">{stock.adr.toFixed(2)}%</p>
+        </div>
+        <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>RS Momentum</p>
+          <p className="font-mono font-semibold">{stock.rs_pct.toFixed(0)}%</p>
+        </div>
+        <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Stop Loss</p>
+          <p className="font-mono font-semibold">${stock.suggested_stop.toFixed(2)}</p>
+        </div>
+        <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>R:R Ratio</p>
+          <p className="font-mono font-semibold">{stock.rr_ratio.toFixed(2)}</p>
         </div>
       </div>
 
-      {/* Signals */}
-      <div className="border-t pt-4 mt-4">
-        <h3 className="font-semibold mb-2">Signals</h3>
-        <div className="flex flex-wrap gap-2">
-          {stock.signals.map((signal, idx) => (
-            <span
-              key={idx}
-              className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm"
-            >
-              {signal}
-            </span>
-          ))}
+      {stock.signals.length > 0 && (
+        <div className="px-4 pb-4">
+          <div className="flex flex-wrap gap-2">
+            {stock.signals.map((signal, idx) => (
+              <span
+                key={idx}
+                className="px-2 py-1 rounded text-xs font-mono"
+                style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)', color: 'var(--accent-green)' }}
+              >
+                {signal}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

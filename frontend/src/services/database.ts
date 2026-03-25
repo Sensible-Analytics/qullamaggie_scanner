@@ -65,13 +65,13 @@ class StockCacheDB extends Dexie {
   async setCachedData(symbol: string, data: CachedStockData['data']): Promise<void> {
     try {
       const now = Date.now();
-      const twentyFourHours = 24 * 60 * 60 * 1000;
+      const oneWeek = 7 * 24 * 60 * 60 * 1000;
       
       const cachedEntry: CachedStockData = {
         symbol,
         data,
         timestamp: now,
-        expiresAt: now + twentyFourHours
+        expiresAt: now + oneWeek
       };
 
       await this.stockData.put(cachedEntry);

@@ -60,7 +60,6 @@ export default function ScannerControls() {
     }
   }, [selectedUniverse, filters, resetScan, setIsLoading, setError, setProgress, setResults]);
 
-  // Auto-run demo scan on first load
   useEffect(() => {
     if (!hasAutoScanned.current && results.length === 0 && !isLoading) {
       hasAutoScanned.current = true;
@@ -69,95 +68,93 @@ export default function ScannerControls() {
   }, [handleRunScan, results.length, isLoading]);
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="rounded-lg border p-4" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold">Scanner Controls</h2>
+        <h2 className="font-mono text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
+          Scanner Config
+        </h2>
         <div className="flex items-center gap-2">
-          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full font-medium">
-            Demo Data
+          <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-green)' }}></span>
+          <span className="text-xs font-mono" style={{ color: 'var(--accent-green)' }}>
+            {isLoading ? 'running' : 'ready'}
           </span>
-          <div className="relative">
-            <button className="text-xs text-blue-500 hover:text-blue-700">
-              ?
-            </button>
-            <div className="absolute left-0 mt-2 w-32 px-2 py-1 bg-blue-900 text-white text-xs rounded shadow-lg z-10 invisible group-hover:visible">
-              Simulated data for demonstration
-            </div>
-          </div>
         </div>
       </div>
       
       <div className="space-y-4">
-        {/* Universe Selector */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Stock Universe
+          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
+            Universe
           </label>
           <select
             value={selectedUniverse}
             onChange={(e) => setSelectedUniverse(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2"
+            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
+            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
           >
             {STOCK_UNIVERSES.map((universe) => (
               <option key={universe.name} value={universe.name}>
-                {universe.name} ({universe.symbols.length} symbols)
+                {universe.name} ({universe.symbols.length})
               </option>
             ))}
           </select>
         </div>
 
-        {/* Filters */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
             Min Price ($)
           </label>
           <input
             type="number"
             value={filters.minPrice}
             onChange={(e) => updateFilters({ minPrice: Number(e.target.value) })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2"
+            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
+            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             min="0"
             step="0.5"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Min Volume ($ millions)
+          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
+            Min Volume ($M)
           </label>
           <input
             type="number"
             value={filters.minVolumeDollars / 1000000}
             onChange={(e) => updateFilters({ minVolumeDollars: Number(e.target.value) * 1000000 })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2"
+            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
+            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             min="0"
             step="1"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
             Min ADR (%)
           </label>
           <input
             type="number"
             value={filters.minADR}
             onChange={(e) => updateFilters({ minADR: Number(e.target.value) })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2"
+            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
+            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             min="0"
             step="0.5"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
             Min Score (0-20)
           </label>
           <input
             type="number"
             value={filters.minScore}
             onChange={(e) => updateFilters({ minScore: Number(e.target.value) })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2"
+            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
+            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
             min="0"
             max="20"
             step="1"
@@ -167,36 +164,54 @@ export default function ScannerControls() {
         <button
           onClick={handleRunScan}
           disabled={isLoading}
-          className={`w-full py-2 px-4 rounded-md transition-colors ${
-            isLoading 
-              ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
-          }`}
+          className="w-full py-2 px-4 rounded font-mono text-sm font-medium transition-all"
+          style={{ 
+            backgroundColor: isLoading ? 'var(--bg-tertiary)' : 'var(--accent-green)', 
+            color: isLoading ? 'var(--text-muted)' : 'var(--bg-primary)',
+            cursor: isLoading ? 'not-allowed' : 'pointer'
+          }}
         >
-          {isLoading ? 'Scanning...' : 'Run Scan'}
+          {isLoading ? '[ scanning... ]' : '[ run scan ]'}
         </button>
       </div>
 
       {error && (
-        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-          <p className="text-sm text-red-700">{error}</p>
+        <div className="mt-4 p-3 rounded text-sm font-mono" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}>
+          <p>{error}</p>
           <button 
             onClick={handleRunScan}
-            className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
+            className="mt-2 underline hover:no-underline"
           >
-            Try Again
+            retry
           </button>
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t">
-        <h3 className="text-sm font-medium text-gray-700 mb-2">Scoring System</h3>
-        <ul className="text-xs text-gray-600 space-y-1">
-          <li>• ADR% (5 pts max)</li>
-          <li>• RS Momentum (4 pts max)</li>
-          <li>• EMA Alignment (7 pts max)</li>
-          <li>• Tightness (2 pts max)</li>
-          <li>• Volume Surge (2 pts max)</li>
+      <div className="mt-6 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <h3 className="text-xs font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
+          20-Point System
+        </h3>
+        <ul className="text-xs font-mono space-y-1" style={{ color: 'var(--text-muted)' }}>
+          <li className="flex justify-between">
+            <span>ADR%</span>
+            <span style={{ color: 'var(--text-secondary)' }}>5 max</span>
+          </li>
+          <li className="flex justify-between">
+            <span>RS Momentum</span>
+            <span style={{ color: 'var(--text-secondary)' }}>4 max</span>
+          </li>
+          <li className="flex justify-between">
+            <span>EMA Alignment</span>
+            <span style={{ color: 'var(--text-secondary)' }}>7 max</span>
+          </li>
+          <li className="flex justify-between">
+            <span>Tightness</span>
+            <span style={{ color: 'var(--text-secondary)' }}>2 max</span>
+          </li>
+          <li className="flex justify-between">
+            <span>Volume Surge</span>
+            <span style={{ color: 'var(--text-secondary)' }}>2 max</span>
+          </li>
         </ul>
       </div>
     </div>

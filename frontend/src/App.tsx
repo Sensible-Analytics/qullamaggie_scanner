@@ -4,96 +4,43 @@ import ScannerControls from './components/ScannerControls';
 import ResultsTable from './components/ResultsTable';
 import DetailPanel from './components/DetailPanel';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { isDemoMode, lastDataSource } from './services/stockApi';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000,
-      gcTime: 24 * 60 * 60 * 1000,
+      staleTime: 60 * 60 * 1000,
+      gcTime: 7 * 24 * 60 * 60 * 1000,
       retry: 2,
     },
   },
 });
 
 function AppContent() {
-  const { selectedSymbol, results, isLoading, error } = useScannerStore();
+  const { selectedSymbol, results, isLoading } = useScannerStore();
   
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Data Source Banner */}
-      <div className="py-2 px-4 text-center text-sm">
-        {isDemoMode ? (
-          <>
-            <span className="font-medium">Demo Mode:</span> Simulated data for illustration.
-            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
-              Data Source: Mock
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="font-medium">Live Data:</span> 
-            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs 
-              ${lastDataSource === 'yahoo' ? 'bg-green-100 text-green-800' :
-                lastDataSource === 'eodhd' ? 'bg-blue-100 text-blue-800' :
-                lastDataSource === 'twelvedata' ? 'bg-purple-100 text-purple-800' :
-                lastDataSource === 'cache' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-gray-100 text-gray-800'}">
-              {lastDataSource === 'yahoo' ? 'Yahoo Finance' :
-                lastDataSource === 'eodhd' ? 'EODHD' :
-                lastDataSource === 'twelvedata' ? 'Twelve Data' :
-                lastDataSource === 'cache' ? 'Cached' :
-                'Unknown'}
-            </span>
-            {lastDataSource === 'yahoo' && (
-              <span className="ml-2 inline-flex items-center px-2 py-1 text-xs bg-green-100 text-green-800 rounded">
-                Free & Unlimited*
-              </span>
-            )}
-          </>
-        )}
-      </div>
-
-      {/* Tooltip Explanation */}
-      {!isDemoMode && lastDataSource === 'yahoo' && (
-        <div className="text-center text-xs text-blue-600 italic px-4 pt-1">
-          * Yahoo Finance via CORS proxy - may have occasional delays
-        </div>
-      )}
-      
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      <header className="border-b" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+        <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Qullamaggie Momentum Scanner
-              </h1>
-              <p className="mt-1 text-sm text-gray-500">
-                Professional-grade stock analysis based on Kristjan Qullamaggie methodology
-              </p>
+            <div className="flex items-center gap-3">
+              <div className="font-mono text-lg font-bold" style={{ color: 'var(--accent-green)' }}>
+                <span className="opacity-50">$</span> qullamaggie
+              </div>
+              <span className="text-xs px-2 py-0.5 rounded font-mono" style={{ backgroundColor: 'var(--accent-green)', color: 'var(--bg-primary)' }}>
+                SCANNER
+              </span>
             </div>
-            <div className="text-right flex flex-col items-end gap-1">
+            <div className="flex items-center gap-4">
               {isLoading ? (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                  <svg className="animate-spin -ml-1 mr-1.5 h-3 w-3 text-blue-600" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Scanning...
-                </span>
-              ) : error ? (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                  Error occurred
+                <span className="flex items-center gap-2 text-sm font-mono" style={{ color: 'var(--accent-amber)' }}>
+                  <span className="animate-pulse">●</span> scanning...
                 </span>
               ) : results.length > 0 ? (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                  {results.length} stocks found
+                <span className="text-sm font-mono" style={{ color: 'var(--accent-green)' }}>
+                  {results.length} signals found
                 </span>
-              ) : (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                  Ready to scan
-                </span>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
@@ -101,29 +48,84 @@ function AppContent() {
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-4 xl:col-span-3">
+          <div className="lg:col-span-3">
             <ScannerControls />
           </div>
           
-          <div className="lg:col-span-8 xl:col-span-9 space-y-6">
+          <div className="lg:col-span-9 space-y-6">
+            {selectedSymbol ? <DetailPanel /> : <HeroSection />}
             <ResultsTable />
-            {selectedSymbol && <DetailPanel />}
           </div>
         </div>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-auto">
+      <footer className="border-t mt-auto" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500">
-            <p>
-              Built by <span className="font-medium text-gray-700">Sensible Analytics</span>
-            </p>
-            <p className="mt-2 sm:mt-0">
-              Data for educational purposes only • Not financial advice
-            </p>
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2 text-sm font-mono">
+              <span style={{ color: 'var(--text-muted)' }}>Built by</span>
+              <a href="https://sensibleanalytics.co" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline" style={{ color: 'var(--accent-green)' }}>
+                Sensible Analytics
+              </a>
+            </div>
+            <div className="flex items-center gap-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+              <span>Data Sources:</span>
+              <span className="flex items-center gap-1">
+                <span style={{ color: 'var(--accent-green)' }}>●</span>
+                Yahoo Finance
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="opacity-50">○</span>
+                EODHD
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="opacity-50">○</span>
+                Twelve Data
+              </span>
+            </div>
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function HeroSection() {
+  return (
+    <div className="rounded-lg border p-6" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+      <div className="flex items-start justify-between gap-6">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="font-mono text-sm" style={{ color: 'var(--accent-green)' }}>
+              const scanner = new Qullamaggie()
+            </span>
+          </div>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
+            Professional-grade momentum stock scanner based on Kristjan Qullamaggie's proven swing trading methodology. 
+            Scans US equities in real-time using a 20-point scoring system to identify explosive breakout setups.
+          </p>
+          <div className="flex flex-wrap gap-2 text-xs font-mono">
+            <span className="px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-muted)' }}>
+              20-point scoring
+            </span>
+            <span className="px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-muted)' }}>
+              EMA alignment
+            </span>
+            <span className="px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-muted)' }}>
+              RS momentum
+            </span>
+            <span className="px-2 py-1 rounded" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-muted)' }}>
+              volume surge
+            </span>
+          </div>
+        </div>
+        <div className="hidden lg:block w-48 h-32 rounded flex items-center justify-center" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
+          <div className="text-center">
+            <div className="font-mono text-2xl font-bold" style={{ color: 'var(--accent-green)' }}>20</div>
+            <div className="text-xs" style={{ color: 'var(--text-muted)' }}>point system</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
