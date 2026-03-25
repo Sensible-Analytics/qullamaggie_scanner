@@ -4,6 +4,7 @@ import ScannerControls from './components/ScannerControls';
 import ResultsTable from './components/ResultsTable';
 import DetailPanel from './components/DetailPanel';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { isDemoMode } from './services/stockApi';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,10 +21,20 @@ function AppContent() {
   
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Demo Mode Banner */}
-      <div className="bg-blue-600 text-white py-2 px-4 text-center text-sm">
-        <span className="font-medium">Demo Mode:</span> Using simulated market data for illustration.
-        Connect Twelve Data API for real-time scanning.
+      {/* Mode Banner */}
+      <div className={`py-2 px-4 text-center text-sm ${isDemoMode ? 'bg-yellow-500 text-yellow-900' : 'bg-green-600 text-white'}`}>
+        {isDemoMode ? (
+          <>
+            <span className="font-medium">Demo Mode:</span> Using simulated market data. 
+            <a href="https://twelvedata.com/pricing" target="_blank" rel="noopener" className="underline ml-1">
+              Get free API key
+            </a> for live data.
+          </>
+        ) : (
+          <>
+            <span className="font-medium">Live Mode:</span> Connected to Twelve Data API for real-time market data.
+          </>
+        )}
       </div>
       
       <header className="bg-white shadow-sm border-b border-gray-200">
