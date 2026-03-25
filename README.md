@@ -1,26 +1,36 @@
-# 📈 Qullamaggie Decision Station
+# 📈 Qullamaggie Momentum Scanner
 
-[![CI](https://github.com/Sensible-Analytics/qullamaggie_scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/Sensible-Analytics/qullamaggie_scanner/actions/workflows/ci.yml)
-[![Release](https://github.com/Sensible-Analytics/qullamaggie_scanner/releases)](https://github.com/Sensible-Analytics/qullamaggie_scanner/releases)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Vercel](https://img.shields.io/badge/Vercel-Deployed-brightgreen)
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-A professional-grade **momentum stock scanner** built on the [Qullamaggie methodology](https://qullamaggie.com/) — a proven swing trading approach used by Kristjan Kullamägi to turn a small account into tens of millions.
+**Live Demo:** [qullamaggie.sensibleanalytics.co](https://qullamaggie.sensibleanalytics.co)
 
-This tool connects to **Interactive Brokers TWS** to scan the US equity market in real-time, scoring stocks on a 20-point system designed to identify explosive breakout setups.
-
-
+A professional-grade momentum stock scanner based on the [Qullamaggie methodology](https://qullamaggie.com/) — the swing trading approach that helped Kristjan Kullamägi turn a small account into millions.
 
 ---
 
-- **Free Data Mode** — Scan using Yahoo Finance (Free EOD data) without needing any IBKR API keys
-- **Standalone Apps** — One-click executables for Windows, macOS, and Linux available in the Releases tab
-- **20-Point Scoring System** — Evaluates ADR%, relative strength, EMA alignment, tightness & volume
-- **Multi-Timeframe Scanning** — Simultaneous 1-month, 3-month, and 6-month momentum analysis
-- **TWS Live Integration** — Real-time market data via Interactive Brokers API with one-click chart sync
-- **Streamlit Dashboard** — Interactive web UI with charts, scoring breakdowns, and conviction tracking
-- **History & Analysis** — Save, compare, and review scan results over time
-- **Demo Mode** — Test the scanner without a live connection using mock data
+## 🎯 What It Does
+
+Scans US equities in real-time using a **20-point scoring system** to identify explosive breakout setups. Built with React + TypeScript, deployed on Vercel, powered by Yahoo Finance data.
+
+### Live Scanner Features
+
+- 📊 **Live Stock Scanner** — Scan S&P 500, NASDAQ 100, Tech Giants, and more
+- 📈 **Candlestick Charts** — Interactive charts with EMA 10/20/50 overlays
+- 🎯 **20-Point Scoring** — ADR%, RS Momentum, EMA Alignment, Tightness, Volume
+- 💾 **Smart Caching** — 1-week data cache for instant reloads
+- 📱 **Responsive Design** — Works on desktop and mobile
+- 💾 **Export Options** — CSV, JSON, Watchlist formats
+
+---
+
+## 🚀 Live Demo
+
+**👉 [https://qullamaggie.sensibleanalytics.co](https://qullamaggie.sensibleanalytics.co)**
+
+![Scanner Preview](docs/scanner-preview.png)
 
 ---
 
@@ -28,18 +38,17 @@ This tool connects to **Interactive Brokers TWS** to scan the US equity market i
 
 ```
 qullamaggie_scanner/
-├── ui/
-│   └── dashboard.py          # Streamlit web dashboard
-├── ibkr_tws/
-│   ├── ib_service.py          # IBKR TWS connection & data service
-│   ├── scanner_engine.py      # Core 20-point scoring engine
-│   └── tws_watchlist.csv      # Exportable watchlist for TWS import
-├── tests/                     # Test suite (unit, integration, E2E)
-├── website/                   # Qullamaggie methodology reference materials
-├── settings.json              # Scanner configuration (thresholds, filters)
-├── requirements.txt           # Python dependencies
-├── run_decision_station.sh    # Launch script
-└── setup_app.sh               # macOS .app bundle creator
+├── frontend/                    # React + TypeScript + Vite + Tailwind
+│   ├── src/
+│   │   ├── components/         # UI Components (Scanner, Results, Charts)
+│   │   ├── services/           # Stock API & caching
+│   │   ├── store/              # Zustand state management
+│   │   └── utils/              # Qullamaggie scoring algorithm
+│   └── dist/                   # Production build
+├── ibkr_tws/                   # Python backend (IBKR TWS integration)
+├── ui/                         # Python Streamlit dashboard (legacy)
+├── tests/                      # Test suite
+└── website/                    # Methodology documentation
 ```
 
 ---
@@ -56,114 +65,109 @@ Every stock is evaluated on a 0–20 scale. High scores = maximum statistical ed
 | **Tightness** | 2 | Volatility contraction (coiling) — narrow range over 5 days |
 | **Volume Surge** | 2 | Recent volume expansion vs. 20-day average |
 
-### Hard Filters (Non-Negotiables)
+### Hard Filters
 - **Min ADR:** 5.0% — baseline for explosive moves
-- **Min Dollar Volume:** $20,000,000/day — ensures institutional liquidity
+- **Min Dollar Volume:** $20,000,000/day — ensures institutional liquidity  
 - **Min Price:** $5.00 — excludes penny stocks
 
 ---
 
-## 🚀 Quick Start
+## 🛠️ Tech Stack
 
-### Prerequisites
-- **Python 3.10+** (Optional if using standalone apps) — [Download](https://www.python.org/downloads/)
-- **Interactive Brokers TWS** — [Download](https://www.interactivebrokers.com/en/trading/tws.php) (Optional: Only needed for live scanning; Yahoo Finance mode works without it)
-- A funded or paper trading IBKR account (Optional)
+| Layer | Technology |
+|:---|:---|
+| **Frontend** | React 19, TypeScript, Vite |
+| **Styling** | Tailwind CSS 4 |
+| **Charts** | Lightweight Charts |
+| **State** | Zustand |
+| **Data Fetching** | TanStack Query |
+| **Caching** | IndexedDB (Dexie.js) |
+| **Data Source** | Yahoo Finance (primary) |
+| **Deployment** | Vercel |
 
-### 1. Clone the Repository
+---
+
+## 🚀 Quick Start (Frontend Only)
+
 ```bash
+# Clone the repo
 git clone https://github.com/Sensible-Analytics/qullamaggie_scanner.git
+cd qullamaggie_scanner/frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+---
+
+## 🖥️ Local Development with IBKR TWS
+
+For live TWS integration, run the Python backend alongside the frontend:
+
+```bash
+# Terminal 1: Start Python backend
 cd qullamaggie_scanner
+source .venv/bin/activate
+./run_decision_station.sh
+
+# Terminal 2: Start frontend
+cd frontend
+npm run dev
 ```
 
-### 2. Create a Virtual Environment
-```bash
-python3 -m venv .venv
-source .venv/bin/activate   # macOS/Linux
-# .venv\Scripts\activate    # Windows
-```
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Configure TWS API
+### Configure IBKR TWS API
 1. Open TWS → **Global Configuration** → **API** → **Settings**
 2. ☑ Enable ActiveX and Socket Clients
 3. Set Socket Port to **7497** (Paper) or **7496** (Live)
-4. ☐ Uncheck "Read-Only API" only if you plan to execute trades
 
-### 5. Launch the Scanner
+---
 
-#### Option A: Standalone App (Easiest)
-Download the `.exe`, `.app`, or Linux binary from the [Releases](https://github.com/Sensible-Analytics/qullamaggie_scanner/releases) page and run it. No Python installation required!
+## 📁 Available Stock Universes
 
-#### Option B: Direct Python launch
+- **S&P 500** — 50 large-cap stocks
+- **NASDAQ 100** — 50 tech/growth stocks  
+- **Tech Giants** — 20 mega-cap tech leaders
+- **High Momentum** — 20 breakout candidates
+- **Semiconductors** — 20 chip stocks
+- **Clean Energy** — 18 renewable energy stocks
+- **FinTech** — 17 financial tech stocks
+- **Biotech** — 20 healthcare/biotech stocks
+- **Full Universe** — 80 stocks combined
+
+---
+
+## ⚙️ Environment Variables
+
+Create `frontend/.env.local` for local development:
+
 ```bash
-streamlit run ui/dashboard.py
-```
-# Option B: Use the launch script
-./run_decision_station.sh
+VITE_TWELVE_DATA_API_KEY=your_twelve_data_key_here
+VITE_EODHD_API_KEY=your_eodhd_key_here
 ```
 
-Select **"★ TRUE QULLAMAGGIE SCAN ★"** and click **▶ RUN SCAN**.
-
-> **💡 Tip:** Enable **Demo Mode** in the sidebar to explore the UI without a live TWS connection.
-
----
-
-## ⚙️ Configuration
-
-Edit `settings.json` to customize scanner behavior:
-
-```json
-{
-    "ibkr": {
-        "host": "127.0.0.1",
-        "port": 7497,
-        "base_client_id": 10,
-        "timeout": 20
-    },
-    "scanner": {
-        "min_price": 5.0,
-        "min_volume": 500000,
-        "min_score": 5,
-        "min_adr": 5.0,
-        "min_volume_dollars": 20000000
-    }
-}
-```
-
-For local overrides, create a `settings.local.json` file (git-ignored) with the same structure.
-
----
-
-## 📟 TWS Chart Setup
-
-For best results, configure your TWS charting layout to match the scanner:
-
-| Chart # | Period | Purpose |
-|:---:|:---|:---|
-| 1 | Daily (1 Month) | Entry timing & tightness check |
-| 2 | Weekly (3 Month) | Primary breakout structure |
-| 3 | Monthly (6 Month) | "Blue Sky" breakout identification |
-
-**Indicators:** EMA 10 (Yellow), EMA 20 (Blue), EMA 50 (Magenta), Volume, ATR(14)
-
-**One-Click Sync:** Link your TWS charts to **Display Group 1 (Red)**. Clicking any row in the scanner auto-updates your charts.
+> 💡 Yahoo Finance works without API keys. Other providers are optional backups.
 
 ---
 
 ## 🧪 Testing
 
 ```bash
-# Run the test suite
-export PYTHONPATH=$PYTHONPATH:.
-pytest tests/ -k "not playwright" --tb=short
+# Frontend unit tests
+cd frontend
+npm test
 
-# Run with verbose output
-pytest tests/ -v -k "not playwright"
+# Python backend tests
+cd qullamaggie_scanner
+pytest tests/ -k "not playwright" --tb=short
 ```
 
 ---
@@ -187,3 +191,7 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 ## ⚠️ Disclaimer
 
 This tool is for **educational and research purposes only**. Trading involves significant risk of financial loss. Always follow proper risk management (risk 0.25–1% per trade as recommended by Kristjan). Past performance does not guarantee future results.
+
+---
+
+Built with ❤️ by [Sensible Analytics](https://sensibleanalytics.co)
