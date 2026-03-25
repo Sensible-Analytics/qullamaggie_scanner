@@ -9,6 +9,8 @@ A professional-grade **momentum stock scanner** built on the [Qullamaggie method
 
 This tool connects to **Interactive Brokers TWS** to scan the US equity market in real-time, scoring stocks on a 20-point system designed to identify explosive breakout setups.
 
+
+
 ---
 
 - **Free Data Mode** — Scan using Yahoo Finance (Free EOD data) without needing any IBKR API keys
