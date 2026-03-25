@@ -1,3 +1,4 @@
+import { useEffect, useRef, useCallback } from 'react';
 import { useScannerStore } from '../store/scannerStore';
 import { STOCK_UNIVERSES } from '../services/stockApi';
 import { calculateMetrics, filterAndSortResults } from '../utils/calculations';
@@ -15,10 +16,13 @@ export default function ScannerControls() {
     setResults,
     isLoading,
     error,
+    results,
     resetScan,
   } = useScannerStore();
+  
+  const hasAutoScanned = useRef(false);
 
-  const handleRunScan = async () => {
+  const handleRunScan = useCallback(async () => {
     resetScan();
     setIsLoading(true);
     
@@ -54,11 +58,24 @@ export default function ScannerControls() {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     }
-  };
+  }, [selectedUniverse, filters, resetScan, setIsLoading, setError, setProgress, setResults]);
+
+  // Auto-run demo scan on first load
+  useEffect(() => {
+    if (!hasAutoScanned.current && results.length === 0 && !isLoading) {
+      hasAutoScanned.current = true;
+      handleRunScan();
+    }
+  }, [handleRunScan, results.length, isLoading]);
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Scanner Controls</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold">Scanner Controls</h2>
+        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full font-medium">
+          Demo Data
+        </span>
+      </div>
       
       <div className="space-y-4">
         {/* Universe Selector */}

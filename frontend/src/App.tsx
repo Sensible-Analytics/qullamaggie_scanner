@@ -16,10 +16,16 @@ const queryClient = new QueryClient({
 });
 
 function AppContent() {
-  const { selectedSymbol, results } = useScannerStore();
+  const { selectedSymbol, results, isLoading, error } = useScannerStore();
   
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Demo Mode Banner */}
+      <div className="bg-blue-600 text-white py-2 px-4 text-center text-sm">
+        <span className="font-medium">Demo Mode:</span> Using simulated market data for illustration.
+        Connect Twelve Data API for real-time scanning.
+      </div>
+      
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -31,10 +37,28 @@ function AppContent() {
                 Professional-grade stock analysis based on Kristjan Qullamaggie methodology
               </p>
             </div>
-            <div className="text-right">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                {results.length} stocks found
-              </span>
+            <div className="text-right flex flex-col items-end gap-1">
+              {isLoading ? (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <svg className="animate-spin -ml-1 mr-1.5 h-3 w-3 text-blue-600" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Scanning...
+                </span>
+              ) : error ? (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                  Error occurred
+                </span>
+              ) : results.length > 0 ? (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  {results.length} stocks found
+                </span>
+              ) : (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                  Ready to scan
+                </span>
+              )}
             </div>
           </div>
         </div>
