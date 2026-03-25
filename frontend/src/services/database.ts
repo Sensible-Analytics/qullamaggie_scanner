@@ -31,9 +31,7 @@ class StockCacheDB extends Dexie {
     super('QullamaggieScannerCache');
     
     this.version(1).stores({
-      symbol: 'symbol',
-      timestamp: 'timestamp',
-      expiresAt: 'expiresAt'
+      stockData: 'symbol, timestamp, expiresAt'
     });
   }
 
