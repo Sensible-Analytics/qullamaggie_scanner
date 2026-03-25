@@ -47,14 +47,33 @@ export default function ResultsTable() {
     return (
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold mb-4">Scan Results</h2>
-        <div className="text-center py-12">
-          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-          <h3 className="mt-4 text-sm font-medium text-gray-900">Ready to analyze</h3>
-          <p className="mt-2 text-sm text-gray-500">
-            Click "Run Scan" to start analyzing stocks using the Qullamaggie methodology.
-          </p>
+        <div className="space-y-6">
+          <div className="text-center py-8">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <h3 className="mt-4 text-sm font-medium text-gray-900">Ready to analyze</h3>
+            <p className="mt-2 text-sm text-gray-500">
+              Click "Run Scan" to start analyzing stocks using the Qullamaggie methodology.
+            </p>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
+            <h3 className="font-medium text-blue-800 mb-2">About Qullamaggie Analysis</h3>
+            <p className="text-sm text-blue-600">
+              The Qullamaggie Momentum Scanner evaluates stocks using a 20-point scoring system based on:
+            </p>
+            <ul className="list-disc list-inside text-sm text-blue-600 space-y-1 pl-5">
+              <li>ADR% (Average Daily Range) - Measures volatility</li>
+              <li>RS Momentum - Relative strength vs. past lows</li>
+              <li>EMA Alignment - Trend following indicators</li>
+              <li>Tightness - Price contraction patterns</li>
+              <li>Volume Surge - Unusual trading activity</li>
+            </ul>
+            <p className="mt-2 text-xs text-blue-500">
+              Scores ≥10 indicate strong momentum candidates for further research.
+            </p>
+          </div>
         </div>
       </div>
     );

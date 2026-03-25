@@ -72,9 +72,19 @@ export default function ScannerControls() {
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">Scanner Controls</h2>
-        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full font-medium">
-          Demo Data
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full font-medium">
+            Demo Data
+          </span>
+          <div className="relative">
+            <button className="text-xs text-blue-500 hover:text-blue-700">
+              ?
+            </button>
+            <div className="absolute left-0 mt-2 w-32 px-2 py-1 bg-blue-900 text-white text-xs rounded shadow-lg z-10 invisible group-hover:visible">
+              Simulated data for demonstration
+            </div>
+          </div>
+        </div>
       </div>
       
       <div className="space-y-4">

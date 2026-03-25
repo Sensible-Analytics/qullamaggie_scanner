@@ -2,32 +2,38 @@ import type { OHLCV } from '../utils/calculations';
 import { stockCache } from './database';
 
 // API Configuration
-// For production: Set VITE_TWELVE_DATA_API_KEY in .env file
-// Get free API key at: https://twelvedata.com/pricing
 const TWELVE_DATA_API_KEY = import.meta.env.VITE_TWELVE_DATA_API_KEY || 'demo';
-const BASE_URL = 'https://api.twelvedata.com';
-const MAX_RETRIES = 3;
-const INITIAL_RETRY_DELAY = 1000;
+const EODHD_API_KEY = import.meta.env.VITE_EODHD_API_KEY || 'demo';
+const MAX_RETRIES = 2;
+const INITIAL_RETRY_DELAY = 500;
 
-// Check if running in demo mode
+// Data source tracking
+export type DataSource = 'yahoo' | 'eodhd' | 'twelvedata' | 'mock' | 'cache';
+export let lastDataSource: DataSource = 'mock';
 export const isDemoMode = TWELVE_DATA_API_KEY === 'demo';
+
+// CORS Proxies for Yahoo Finance (rotate if one fails)
+const CORS_PROXIES = [
+  'https://corsproxy.io/?',
+  'https://api.allorigins.win/raw?url=',
+  'https://cors-anywhere.herokuapp.com/',
+];
+
+// Track proxy index for rotation
+let proxyIndex = 0;
 
 export interface StockUniverse {
   name: string;
   symbols: string[];
 }
 
-interface TwelveDataResponse {
-  status: string;
-  message?: string;
-  values?: Array<{
-    datetime: string;
-    open: string;
-    high: string;
-    low: string;
-    close: string;
-    volume: string;
-  }>;
+interface TwelveDataItem {
+  datetime: string;
+  open: string;
+  high: string;
+  low: string;
+  close: string;
+  volume: string;
 }
 
 async function fetchWithRetry(url: string, retries: number = MAX_RETRIES): Promise<Response | null> {
@@ -60,6 +66,165 @@ async function fetchWithRetry(url: string, retries: number = MAX_RETRIES): Promi
   return null;
 }
 
+// Yahoo Finance v8 API - via CORS proxy
+async function fetchFromYahoo(symbol: string, range: string = '1y'): Promise<OHLCV[] | null> {
+  const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=${range}`;
+  
+  // Try each CORS proxy
+  for (let i = 0; i < CORS_PROXIES.length; i++) {
+    const proxyUrl = `${CORS_PROXIES[proxyIndex]}${encodeURIComponent(yahooUrl)}`;
+    proxyIndex = (proxyIndex + 1) % CORS_PROXIES.length;
+    
+    try {
+      console.log(`[Yahoo] Fetching ${symbol} via proxy ${i + 1}...`);
+      const response = await fetchWithRetry(proxyUrl, 1);
+      
+      if (!response) continue;
+      
+      const data = await response.json();
+      
+      if (!data.chart?.result?.[0]) {
+        console.warn(`[Yahoo] No data for ${symbol}`);
+        continue;
+      }
+      
+      const result = data.chart.result[0];
+      const timestamps: number[] = result.timestamp || [];
+      const quote = result.indicators?.quote?.[0] as { open: (number | null)[]; high: (number | null)[]; low: (number | null)[]; close: (number | null)[]; volume: (number | null)[] } | undefined;
+      
+      if (!quote || !timestamps.length) continue;
+      
+      const ohlcv: OHLCV[] = [];
+      
+      for (let j = 0; j < timestamps.length; j++) {
+        const date = new Date(timestamps[j] * 1000);
+        const open = quote.open?.[j];
+        const high = quote.high?.[j];
+        const low = quote.low?.[j];
+        const close = quote.close?.[j];
+        const volume = quote.volume?.[j];
+        
+        // Skip invalid data points
+        if (open == null || high == null || low == null || close == null) continue;
+        
+        ohlcv.push({
+          date: date.toISOString().split('T')[0],
+          open,
+          high,
+          low,
+          close,
+          volume: volume ?? 0,
+        });
+      }
+      
+      if (ohlcv.length >= 50) {
+        console.log(`[Yahoo] ✓ Got ${ohlcv.length} bars for ${symbol}`);
+        lastDataSource = 'yahoo';
+        return ohlcv;
+      }
+      
+    } catch (error) {
+      console.warn(`[Yahoo] Proxy ${i + 1} failed:`, error);
+    }
+  }
+  
+  console.warn(`[Yahoo] All proxies failed for ${symbol}`);
+  return null;
+}
+
+// EODHD API - Free tier with demo key
+async function fetchFromEODHD(symbol: string): Promise<OHLCV[] | null> {
+  // EODHD uses format: SYMBOL.US for US stocks
+  const eodSymbol = symbol.includes('.') ? symbol : `${symbol}.US`;
+  const url = `https://eodhd.com/api/eod/${eodSymbol}?api_token=${EODHD_API_KEY}&fmt=json&period=d`;
+  
+  try {
+    console.log(`[EODHD] Fetching ${symbol}...`);
+    const response = await fetchWithRetry(url);
+    
+    if (!response) return null;
+    
+    const data = await response.json();
+    
+    if (!Array.isArray(data) || data.length === 0) {
+      console.warn(`[EODHD] No data for ${symbol}`);
+      return null;
+    }
+    
+    interface EODHDItem {
+      date: string;
+      open: string;
+      high: string;
+      low: string;
+      close: string;
+      adjusted_close?: string;
+      volume: string;
+    }
+    
+    const ohlcv: OHLCV[] = (data as EODHDItem[]).slice(-252).map((item) => ({
+      date: item.date,
+      open: parseFloat(item.open),
+      high: parseFloat(item.high),
+      low: parseFloat(item.low),
+      close: parseFloat(item.close || item.adjusted_close || '0'),
+      volume: parseInt(item.volume) || 0,
+    }));
+    
+    if (ohlcv.length >= 50) {
+      console.log(`[EODHD] ✓ Got ${ohlcv.length} bars for ${symbol}`);
+      lastDataSource = 'eodhd';
+      return ohlcv;
+    }
+    
+  } catch (error) {
+    console.warn(`[EODHD] Error for ${symbol}:`, error);
+  }
+  
+  return null;
+}
+
+// Twelve Data API
+async function fetchFromTwelveData(symbol: string): Promise<OHLCV[] | null> {
+  if (TWELVE_DATA_API_KEY === 'demo') return null;
+  
+  const url = `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1day&outputsize=252&apikey=${TWELVE_DATA_API_KEY}`;
+  
+  try {
+    console.log(`[TwelveData] Fetching ${symbol}...`);
+    const response = await fetchWithRetry(url);
+    
+    if (!response) return null;
+    
+    const data = await response.json();
+    
+    if (data.status === 'error' || !data.values) {
+      console.warn(`[TwelveData] Error for ${symbol}:`, data.message);
+      return null;
+    }
+    
+    const values = data.values as TwelveDataItem[];
+    const ohlcv: OHLCV[] = values.map((item) => ({
+      date: item.datetime,
+      open: parseFloat(item.open),
+      high: parseFloat(item.high),
+      low: parseFloat(item.low),
+      close: parseFloat(item.close),
+      volume: parseInt(item.volume) || 0,
+    })).reverse();
+    
+    if (ohlcv.length >= 50) {
+      console.log(`[TwelveData] ✓ Got ${ohlcv.length} bars for ${symbol}`);
+      lastDataSource = 'twelvedata';
+      return ohlcv;
+    }
+    
+  } catch (error) {
+    console.warn(`[TwelveData] Error for ${symbol}:`, error);
+  }
+  
+  return null;
+}
+
 export const STOCK_UNIVERSES: StockUniverse[] = [
   {
     name: 'S&P 500 Leaders',
@@ -85,75 +250,63 @@ export const STOCK_UNIVERSES: StockUniverse[] = [
 
 export async function fetchHistoricalData(
   symbol: string,
-  interval: string = '1day',
+  _interval?: string,
   forceRefresh: boolean = false
 ): Promise<OHLCV[] | null> {
+  // Note: interval parameter reserved for future use (currently always daily)
   try {
     // Check cache first (unless forcing refresh)
     if (!forceRefresh) {
       const cached = await stockCache.getCachedData(symbol);
       if (cached) {
         console.log(`[Cache] Hit for ${symbol}`);
+        lastDataSource = 'cache';
         return cached.data as OHLCV[];
       }
     }
 
-    // Demo mode: use mock data
-    if (isDemoMode) {
-      console.log(`[Demo] Generating mock data for ${symbol}`);
-      const mockData = generateMockData(symbol);
-      await stockCache.setCachedData(symbol, mockData);
-      return mockData;
+    // Multi-provider fallback strategy
+    // 1. Yahoo Finance (via CORS proxy) - Best free option, no API key needed
+    // 2. EODHD - Free tier with demo key
+    // 3. Twelve Data - If user has API key
+    // 4. Mock data - Always works as last resort
+    
+    let data: OHLCV[] | null = null;
+
+    // Try Yahoo Finance first (works without API key)
+    console.log(`[Fetch] Trying Yahoo Finance for ${symbol}...`);
+    data = await fetchFromYahoo(symbol);
+    
+    if (!data) {
+      // Try EODHD
+      console.log(`[Fetch] Yahoo failed, trying EODHD for ${symbol}...`);
+      data = await fetchFromEODHD(symbol);
+    }
+    
+    if (!data && TWELVE_DATA_API_KEY !== 'demo') {
+      // Try Twelve Data only if user has real API key
+      console.log(`[Fetch] EODHD failed, trying Twelve Data for ${symbol}...`);
+      data = await fetchFromTwelveData(symbol);
     }
 
-    // Live mode: fetch from Twelve Data API
-    console.log(`[API] Fetching ${symbol} from Twelve Data...`);
-    const response = await fetchWithRetry(
-      `${BASE_URL}/time_series?symbol=${symbol}&interval=${interval}&outputsize=500&apikey=${TWELVE_DATA_API_KEY}`
-    );
-    
-    if (!response) {
-      console.error(`[API] Failed to fetch ${symbol} after retries, using mock data`);
-      // Fallback to mock data if API fails
-      const mockData = generateMockData(symbol);
-      await stockCache.setCachedData(symbol, mockData);
-      return mockData;
+    // Final fallback: mock data
+    if (!data) {
+      console.log(`[Fetch] All APIs failed, using mock data for ${symbol}`);
+      data = generateMockData(symbol);
+      lastDataSource = 'mock';
     }
     
-    const data: TwelveDataResponse = await response.json();
+    // Cache the data
+    await stockCache.setCachedData(symbol, data);
+    console.log(`[Fetch] ✓ ${symbol}: ${data.length} bars from ${lastDataSource}`);
     
-    if (data.status === 'error') {
-      console.error(`[API] Error for ${symbol}:`, data.message);
-      // Fallback to mock data
-      const mockData = generateMockData(symbol);
-      await stockCache.setCachedData(symbol, mockData);
-      return mockData;
-    }
-    
-    if (!data.values || data.values.length === 0) {
-      console.error(`[API] No data for ${symbol}`);
-      return null;
-    }
-    
-    const ohlcvData = data.values.map((item) => ({
-      date: item.datetime,
-      open: parseFloat(item.open),
-      high: parseFloat(item.high),
-      low: parseFloat(item.low),
-      close: parseFloat(item.close),
-      volume: parseInt(item.volume) || 0,
-    })).reverse(); // Reverse to get chronological order
-    
-    // Cache the fetched data
-    await stockCache.setCachedData(symbol, ohlcvData);
-    console.log(`[API] Successfully fetched ${ohlcvData.length} bars for ${symbol}`);
-    
-    return ohlcvData;
+    return data;
     
   } catch (error) {
-    console.error(`[API] Error fetching ${symbol}:`, error);
-    // Fallback to mock data on any error
+    console.error(`[Fetch] Error for ${symbol}:`, error);
+    // Always return mock data on error
     const mockData = generateMockData(symbol);
+    lastDataSource = 'mock';
     await stockCache.setCachedData(symbol, mockData);
     return mockData;
   }

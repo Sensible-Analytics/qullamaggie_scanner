@@ -4,7 +4,7 @@ import ScannerControls from './components/ScannerControls';
 import ResultsTable from './components/ResultsTable';
 import DetailPanel from './components/DetailPanel';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { isDemoMode } from './services/stockApi';
+import { isDemoMode, lastDataSource } from './services/stockApi';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,21 +21,45 @@ function AppContent() {
   
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Mode Banner */}
-      <div className={`py-2 px-4 text-center text-sm ${isDemoMode ? 'bg-yellow-500 text-yellow-900' : 'bg-green-600 text-white'}`}>
+      {/* Data Source Banner */}
+      <div className="py-2 px-4 text-center text-sm">
         {isDemoMode ? (
           <>
-            <span className="font-medium">Demo Mode:</span> Using simulated market data. 
-            <a href="https://twelvedata.com/pricing" target="_blank" rel="noopener" className="underline ml-1">
-              Get free API key
-            </a> for live data.
+            <span className="font-medium">Demo Mode:</span> Simulated data for illustration.
+            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
+              Data Source: Mock
+            </span>
           </>
         ) : (
           <>
-            <span className="font-medium">Live Mode:</span> Connected to Twelve Data API for real-time market data.
+            <span className="font-medium">Live Data:</span> 
+            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs 
+              ${lastDataSource === 'yahoo' ? 'bg-green-100 text-green-800' :
+                lastDataSource === 'eodhd' ? 'bg-blue-100 text-blue-800' :
+                lastDataSource === 'twelvedata' ? 'bg-purple-100 text-purple-800' :
+                lastDataSource === 'cache' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-gray-100 text-gray-800'}">
+              {lastDataSource === 'yahoo' ? 'Yahoo Finance' :
+                lastDataSource === 'eodhd' ? 'EODHD' :
+                lastDataSource === 'twelvedata' ? 'Twelve Data' :
+                lastDataSource === 'cache' ? 'Cached' :
+                'Unknown'}
+            </span>
+            {lastDataSource === 'yahoo' && (
+              <span className="ml-2 inline-flex items-center px-2 py-1 text-xs bg-green-100 text-green-800 rounded">
+                Free & Unlimited*
+              </span>
+            )}
           </>
         )}
       </div>
+
+      {/* Tooltip Explanation */}
+      {!isDemoMode && lastDataSource === 'yahoo' && (
+        <div className="text-center text-xs text-blue-600 italic px-4 pt-1">
+          * Yahoo Finance via CORS proxy - may have occasional delays
+        </div>
+      )}
       
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
