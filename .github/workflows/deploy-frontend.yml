@@ -23,6 +23,9 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      VITE_TWELVE_DATA_API_KEY: e52427fccc314747a5500ec8cc139fa8
+      VITE_EODHD_API_KEY: 69c3dbf55ed089.87916849
     steps:
       - name: Checkout
         uses: actions/checkout@v4
