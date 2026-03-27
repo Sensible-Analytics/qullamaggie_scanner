@@ -1,197 +1,214 @@
-# 📈 Qullamaggie Momentum Scanner
+<div align="center">
 
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-brightgreen)
-![React](https://img.shields.io/badge/React-19-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![Qullamaggie Scanner](https://www.sensibleanalytics.co/logos/qullamaggie-logo.png)](https://qullamaggie.sensibleanalytics.co)
 
-**Live Demo:** [qullamaggie.sensibleanalytics.co](https://qullamaggie.sensibleanalytics.co)
+# Qullamaggie Scanner
 
-A professional-grade momentum stock scanner based on the [Qullamaggie methodology](https://qullamaggie.com/) — the swing trading approach that helped Kristjan Kullamägi turn a small account into millions.
+### Professional Momentum Stock Scanner
 
----
+**20-point scoring system based on the Qullamaggie methodology**
 
-## 🎯 What It Does
+[![Live Scanner](https://img.shields.io/badge/Live_Scanner-00C7B7?style=for-the-badge&logo=vercel&logoColor=white)](https://qullamaggie.sensibleanalytics.co)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Sensible-Analytics/qullamaggie_scanner)
 
-Scans US equities in real-time using a **20-point scoring system** to identify explosive breakout setups. Built with React + TypeScript, deployed on Vercel, powered by Yahoo Finance data.
-
-### Live Scanner Features
-
-- 📊 **Live Stock Scanner** — Scan S&P 500, NASDAQ 100, Tech Giants, and more
-- 📈 **Candlestick Charts** — Interactive charts with EMA 10/20/50 overlays
-- 🎯 **20-Point Scoring** — ADR%, RS Momentum, EMA Alignment, Tightness, Volume
-- 💾 **Smart Caching** — 1-week data cache for instant reloads
-- 📱 **Responsive Design** — Works on desktop and mobile
-- 💾 **Export Options** — CSV, JSON, Watchlist formats
+</div>
 
 ---
 
-## 🚀 Live Demo
+## 🛡️ Security First
 
-**👉 [https://qullamaggie.sensibleanalytics.co](https://qullamaggie.sensibleanalytics.co)**
-
-![Scanner Preview](docs/scanner-preview.png)
+> ⚠️ **CRITICAL SECURITY WARNING**
+>
+> This repository uses **automated secret scanning**. NEVER commit:
+> - API keys (OpenAI, Anthropic, database credentials)
+> - AI agent tokens
+> - Database connection strings
+> - Private keys
+>
+> **Before committing:** Review our [Security Policy](SECURITY.md) and [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md)
 
 ---
 
-## 🏗️ Architecture
+## 🎯 What is Qullamaggie Scanner?
 
+A **professional momentum stock scanner** that implements the Qullamaggie methodology for identifying high-probability trading setups. Built for serious traders who want data-driven insights.
+
+### The Qullamaggie Methodology
+
+Based on the trading principles popularized by Kristjan Kullamägi, this scanner evaluates stocks on:
+
+- 📈 **Price Momentum** — Relative strength and trend direction
+- 📊 **Volume Analysis** — Institutional accumulation patterns
+- 🎯 **Technical Setup** — Pattern recognition and entry points
+- ⚠️ **Risk Management** — Position sizing and stop-loss levels
+
+---
+
+## ✨ Features
+
+### 20-Point Scoring System
+
+Each stock is evaluated on 20 key criteria:
+
+1. **Trend Strength** — ADX and directional movement
+2. **Relative Performance** — vs S&P 500 and sector
+3. **Volume Profile** — Accumulation/distribution patterns
+4. **Moving Averages** — Alignment and slope analysis
+5. **Breakout Quality** — Volume confirmation and pullback behavior
+6. **And 15 more...**
+
+### Real-Time Data
+
+- **Live Prices** — Yahoo Finance integration
+- **Market Open/Close** — Pre and post-market scanning
+- **Intraday Updates** — Real-time score adjustments
+- **Historical Backtesting** — Test strategies on past data
+
+### Watchlist Management
+
+- **Custom Lists** — Create and save watchlists
+- **Import/Export** — CSV import for bulk analysis
+- **Alerts** — Get notified when scores change
+- **Notes** — Add trading notes to each stock
+
+### Visual Analysis
+
+- **Charts** — Interactive candlestick charts
+- **Score Breakdown** — Visual representation of 20 criteria
+- **Comparison Mode** — Side-by-side stock comparison
+- **Sector Analysis** — View sector momentum
+
+---
+
+## 🚀 Quick Start
+
+### Live Scanner
+
+Access the live scanner at **[qullamaggie.sensibleanalytics.co](https://qullamaggie.sensibleanalytics.co)**
+
+### Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/Sensible-Analytics/qullamaggie_scanner.git
+cd qullamaggie_scanner
+
+# Install frontend dependencies
+cd frontend
+npm install
+npm run dev
+
+# Install backend dependencies (optional)
+cd ../backend
+pip install -r requirements.txt
+python app.py
 ```
-qullamaggie_scanner/
-├── frontend/                    # React + TypeScript + Vite + Tailwind
-│   ├── src/
-│   │   ├── components/         # UI Components (Scanner, Results, Charts)
-│   │   ├── services/           # Stock API & caching
-│   │   ├── store/              # Zustand state management
-│   │   └── utils/              # Qullamaggie scoring algorithm
-│   └── dist/                   # Production build
-├── ibkr_tws/                   # Python backend (IBKR TWS integration)
-├── ui/                         # Python Streamlit dashboard (legacy)
-├── tests/                      # Test suite
-└── website/                    # Methodology documentation
-```
-
----
-
-## 📊 The 20-Point Scoring System
-
-Every stock is evaluated on a 0–20 scale. High scores = maximum statistical edge.
-
-| Criteria | Max Pts | What It Measures |
-|:---|:---:|:---|
-| **ADR% (Average Daily Range)** | 5 | Explosiveness — higher ADR = higher potential moves |
-| **Relative Strength** | 4 | % gain from the lowest point over 1M/3M/6M periods |
-| **EMA Alignment** | 7 | Price > 10 > 20 > 50 EMA with "surfing" proximity logic |
-| **Tightness** | 2 | Volatility contraction (coiling) — narrow range over 5 days |
-| **Volume Surge** | 2 | Recent volume expansion vs. 20-day average |
-
-### Hard Filters
-- **Min ADR:** 5.0% — baseline for explosive moves
-- **Min Dollar Volume:** $20,000,000/day — ensures institutional liquidity  
-- **Min Price:** $5.00 — excludes penny stocks
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|:---|:---|
-| **Frontend** | React 19, TypeScript, Vite |
-| **Styling** | Tailwind CSS 4 |
-| **Charts** | Lightweight Charts |
-| **State** | Zustand |
-| **Data Fetching** | TanStack Query |
-| **Caching** | IndexedDB (Dexie.js) |
-| **Data Source** | Yahoo Finance (primary) |
-| **Deployment** | Vercel |
+| Component | Technology |
+|-----------|------------|
+| **Frontend** | React, TypeScript |
+| **Charts** | TradingView Lightweight Charts |
+| **Data Source** | Yahoo Finance API |
+| **Backend** | Python, FastAPI |
+| **Analysis** | pandas, numpy, TA-Lib |
+| **Styling** | Tailwind CSS |
 
 ---
 
-## 🚀 Quick Start (Frontend Only)
+## 📊 Scoring Methodology
 
-```bash
-# Clone the repo
-git clone https://github.com/Sensible-Analytics/qullamaggie_scanner.git
-cd qullamaggie_scanner/frontend
+### Score Breakdown (0-100)
 
-# Install dependencies
-npm install
+| Category | Weight | Description |
+|----------|--------|-------------|
+| **Trend** | 20% | Direction and strength of trend |
+| **Momentum** | 20% | Rate of price change |
+| **Volume** | 15% | Institutional interest indicators |
+| **Setup** | 15% | Technical pattern quality |
+| **Risk** | 15% | Stop-loss and position sizing |
+| **Market** | 15% | Overall market context |
 
-# Start development server
-npm run dev
+### Interpretation
 
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
----
-
-## 🖥️ Local Development with IBKR TWS
-
-For live TWS integration, run the Python backend alongside the frontend:
-
-```bash
-# Terminal 1: Start Python backend
-cd qullamaggie_scanner
-source .venv/bin/activate
-./run_decision_station.sh
-
-# Terminal 2: Start frontend
-cd frontend
-npm run dev
-```
-
-### Configure IBKR TWS API
-1. Open TWS → **Global Configuration** → **API** → **Settings**
-2. ☑ Enable ActiveX and Socket Clients
-3. Set Socket Port to **7497** (Paper) or **7496** (Live)
-
----
-
-## 📁 Available Stock Universes
-
-- **S&P 500** — 50 large-cap stocks
-- **NASDAQ 100** — 50 tech/growth stocks  
-- **Tech Giants** — 20 mega-cap tech leaders
-- **High Momentum** — 20 breakout candidates
-- **Semiconductors** — 20 chip stocks
-- **Clean Energy** — 18 renewable energy stocks
-- **FinTech** — 17 financial tech stocks
-- **Biotech** — 20 healthcare/biotech stocks
-- **Full Universe** — 80 stocks combined
-
----
-
-## ⚙️ Environment Variables
-
-Create `frontend/.env.local` for local development:
-
-```bash
-VITE_TWELVE_DATA_API_KEY=your_twelve_data_key_here
-VITE_EODHD_API_KEY=your_eodhd_key_here
-```
-
-> 💡 Yahoo Finance works without API keys. Other providers are optional backups.
-
----
-
-## 🧪 Testing
-
-```bash
-# Frontend unit tests
-cd frontend
-npm test
-
-# Python backend tests
-cd qullamaggie_scanner
-pytest tests/ -k "not playwright" --tb=short
-```
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -m "Add my feature"`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Open a Pull Request
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+- **80-100** — Exceptional setup (strong buy)
+- **60-79** — Good setup (consider buy)
+- **40-59** — Neutral (watch)
+- **20-39** — Weak setup (avoid)
+- **0-19** — Poor setup (short candidate)
 
 ---
 
 ## ⚠️ Disclaimer
 
-This tool is for **educational and research purposes only**. Trading involves significant risk of financial loss. Always follow proper risk management (risk 0.25–1% per trade as recommended by Kristjan). Past performance does not guarantee future results.
+**This tool is for educational and research purposes only.** It is **not financial advice**. 
+
+- Past performance does not guarantee future results
+- Always do your own research
+- Consult with a qualified financial advisor
+- Never trade with money you cannot afford to lose
+
+Trading stocks involves substantial risk of loss.
 
 ---
 
-Built with ❤️ by [Sensible Analytics](https://sensibleanalytics.co)
+## 🔐 Development Security
+
+### 🚨 Security Requirements
+
+This repository includes **automated secret scanning**. NEVER commit:
+- API keys or tokens
+- Database credentials
+- Private keys
+
+**Before contributing:**
+
+1. **Install pre-commit hooks:**
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   ```
+
+2. **Use environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env (NEVER commit!)
+   ```
+
+3. **If you expose a secret:**
+   - Revoke immediately
+   - Contact: security@sensibleanalytics.co
+
+See [Security Policy](SECURITY.md) and [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md) for details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md).
+
+---
+
+## 📚 Resources
+
+- [Qullamaggie Blog](https://qullamaggie.com/) — Original methodology
+- [Technical Analysis Basics](https://www.investopedia.com/technical-analysis-4689757)
+- [Risk Management Guide](https://www.investopedia.com/articles/trading/09/risk-management.asp)
+
+---
+
+## 🛡️ License
+
+MIT License — see [LICENSE](LICENSE)
+
+---
+
+<div align="center">
+
+**Built by [Sensible Analytics](https://www.sensibleanalytics.co)**  
+*Data-driven trading tools for informed decisions*
+
+[Website](https://www.sensibleanalytics.co) · [LinkedIn](https://www.linkedin.com/in/prabhatr/)
+
+</div>
