@@ -1,0 +1,114 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please search existing issues first to avoid duplicates.
+        
+        ⚠️ **Security Issues**: Do NOT use this template for security vulnerabilities. 
+        Please email [security@sensibleanalytics.co](mailto:security@sensibleanalytics.co) instead.
+
+  - type: checkboxes
+    id: pre-flight
+    attributes:
+      label: Pre-flight Checks
+      description: Please confirm you've completed these steps
+      options:
+        - label: I have searched for existing issues (open and closed)
+          required: true
+        - label: I am using the latest version of the software
+          required: true
+        - label: I have read the relevant documentation
+          required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: |
+        When I try to [action], [unexpected behavior] happens instead of [expected behavior].
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+      placeholder: I expected the application to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened
+      placeholder: Instead, the application...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please provide details about your environment:
+        - OS: [e.g., macOS, Windows, Linux]
+        - Browser: [e.g., Chrome, Safari, Firefox] (if applicable)
+        - Node.js version: [e.g., 18.17.0] (run `node --version`)
+        - Package version: [e.g., 1.2.3]
+      render: bash
+      placeholder: |
+        OS: macOS 14.0
+        Browser: Chrome 120
+        Node.js: 18.17.0
+        Package Version: 1.2.3
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs & Screenshots
+      description: |
+        If applicable, add screenshots, error messages, or log output to help explain your problem.
+        
+        Tip: For long logs, use `<details><summary>Click to expand</summary>...logs...</details>`
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this issue?
+      options:
+        - Critical - Application crashes or data loss
+        - High - Major feature broken, workaround difficult
+        - Medium - Feature partially broken, workaround exists
+        - Low - Minor issue, cosmetic, or enhancement
+      default: 2
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](../CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

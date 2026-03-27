@@ -1,0 +1,15 @@
+# Default CODEOWNERS for Sensible Analytics repositories
+
+# Global fallback - all files
+* @Sensible-Analytics/engineering
+
+# Organization-level files
+.github/ @Sensible-Analytics/engineering
+CODEOWNERS @Sensible-Analytics/engineering
+LICENSE @Sensible-Analytics/engineering
+SECURITY.md @Sensible-Analytics/engineering
+
+# Documentation
+README.md @Sensible-Analytics/engineering
+CONTRIBUTING.md @Sensible-Analytics/engineering
+CODE_OF_CONDUCT.md @Sensible-Analytics/engineering

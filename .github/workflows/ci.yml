@@ -2,42 +2,44 @@ name: CI
 
 on:
   push:
-    branches: [master, main]
+    branches: [main, master]
   pull_request:
-    branches: [master, main]
+    branches: [main, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  lint-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
-
+        node-version: [18.x, 20.x]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install flake8
+        run: npm ci
 
-      - name: Lint with flake8 (non-blocking)
-        continue-on-error: true
-        run: |
-          flake8 ibkr_tws/ ui/ --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 ibkr_tws/ ui/ --count --exit-zero --max-complexity=15 --max-line-length=150 --statistics
+      - name: Run linter
+        run: npm run lint --if-present
+
+      - name: Run type check
+        run: npm run type-check --if-present
 
       - name: Run tests
-        run: |
-          export PYTHONPATH=$PYTHONPATH:.
-          pytest tests/ \
-            --ignore=tests/test_e2e_dashboard.py \
-            --ignore=tests/test_ib_service.py \
-            -k "not playwright" \
-            --tb=short -q || true
+        run: npm test --if-present
+
+      - name: Build
+        run: npm run build --if-present

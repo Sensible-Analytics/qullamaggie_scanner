@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❓ Ask a Question
+    url: https://github.com/orgs/Sensible-Analytics/discussions/categories/q-a
+    about: Ask questions and get help from the community
+  
+  - name: 💡 Feature Ideas & Discussions
+    url: https://github.com/orgs/Sensible-Analytics/discussions/categories/ideas
+    about: Share and discuss feature ideas before creating a formal request
+  
+  - name: 🛡️ Report a Security Vulnerability
+    url: https://github.com/Sensible-Analytics/.github/blob/main/SECURITY.md
+    about: Please report security vulnerabilities privately via email
+  
+  - name: 📖 Documentation Issue
+    url: https://github.com/Sensible-Analytics/.github/issues/new?template=bug_report.yml
+    about: Report documentation errors or suggest improvements
