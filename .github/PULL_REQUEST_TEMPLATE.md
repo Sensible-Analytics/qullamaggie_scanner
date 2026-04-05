@@ -1,70 +1,24 @@
-## Summary
+## Description
 
-<!-- Provide a brief summary of the changes made in this PR -->
-
-## Changes
-
-<!-- Describe the specific changes made -->
-- 
-- 
-- 
-
-## Motivation
-
-<!-- Why were these changes necessary? Link to any related issues -->
-Fixes # (issue number)
+Please include a summary of the changes and the related issue. Please also include relevant motivation and context.
 
 ## Type of Change
 
-- [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
-- [ ] ✨ New feature (non-breaking change which adds functionality)
-- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] 📚 Documentation update
-- [ ] 🔧 Refactoring (no functional changes)
-- [ ] ⚡ Performance improvement
-- [ ] 🧪 Tests (adding missing tests or correcting existing tests)
-- [ ] 🔨 Build/CI related changes
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] This change requires a documentation update
 
-## Testing
+## How Has This Been Tested?
 
-<!-- Describe the tests you ran and how to reproduce them -->
-- [ ] Unit tests pass (`npm test` or `pytest`)
-- [ ] Integration tests pass
-- [ ] Manual testing performed
-- [ ] Tested on [list platforms/environments]
-
-**Test Instructions:**
-```bash
-# Provide commands to test these changes
-```
+Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce.
 
 ## Checklist
 
-- [ ] My code follows the project's style guidelines
+- [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published
-
-## Screenshots (if applicable)
-
-<!-- Add screenshots to help explain your changes -->
-
-## Breaking Changes
-
-<!-- If this is a breaking change, describe the impact and migration path -->
-- **Breaking:** [description of breaking change]
-- **Migration:** [how to migrate existing code]
-
-## Additional Notes
-
-<!-- Any additional information that reviewers should know -->
-
----
-
-**Reviewers:** @Sensible-Analytics/engineering
-
-**Related Issues:** Fixes #, Relates to #

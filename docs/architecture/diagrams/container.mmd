@@ -1,0 +1,83 @@
+```mermaid
+C4Container
+title Container Diagram for Sensible Analytics Platform
+
+Person(admin, "Administrator", "Manages settings and configurations")
+Person(user, "User", "Uses analytics applications")
+
+Container_Boundary(mobile, "Mobile Applications") {
+    Container(mobile_app, "CardScannerApp", "React Native", "Scans business cards")
+}
+
+Container_Boundary(web_frontend, "Web Frontends") {
+    Container(prop_roo_frontend, "PropRoo Frontend", "React + Vite", "Property analytics UI")
+    Container(folio_frontend, "Folio Frontend", "React", "Portfolio tracking UI")
+    Container(qullamaggie_frontend, "Qullamaggie Frontend", "React", "Stock screening UI")
+    Container(rentroo_frontend, "Rentroo Frontend", "React", "Property management UI")
+    Container(crewcircle_frontend, "Crewcircle Frontend", "React", "Workforce management UI")
+    Container(video_frontend, "Video Analysis Frontend", "React", "Educational video UI")
+}
+
+Container_Boundary(api_layer, "API Layer") {
+    Container(prop_roo_api, "PropRoo API", "FastAPI", "Property analytics backend")
+    Container(folio_api, "Folio API", "Rust/Tauri", "Portfolio tracking backend")
+    Container(qullamaggie_api, "Qullamaggie API", "Python", "Stock screening backend")
+    Container(rentroo_api, "Rentroo API", "Node.js", "Property management backend")
+    Container(crewcircle_api, "Crewcircle API", "Node.js", "Workforce management backend")
+    Container(video_api, "Video Analysis API", "Python", "Video processing backend")
+}
+
+Container_Boundary(ai_services, "AI Services") {
+    Container(llm_service, "LLM Service", "OpenAI", "Language model processing")
+    Container(ocr_service, "OCR Service", "OpenAI Vision", "Business card scanning")
+    Container(transcription_service, "Transcription Service", "OpenAI Whisper", "Video transcription")
+}
+
+Container_Boundary(data_layer, "Data Layer") {
+    ContainerDb(prop_roo_db, "PropRoo DB", "DuckDB/Parquet", "Property data storage")
+    ContainerDb(folio_db, "Folio DB", "SQLite", "Portfolio data storage")
+    ContainerDb(rentroo_db, "Rentroo DB", "PostgreSQL", "Property management data")
+    ContainerDb(crewcircle_db, "Crewcircle DB", "PostgreSQL", "Workforce data")
+    ContainerDb(neon_main, "Main Neon DB", "PostgreSQL", "Shared data storage")
+}
+
+System_Ext(vercel, "Vercel", "Deployment platform")
+System_Ext(cloudflare, "Cloudflare", "CDN and WAF")
+System_Ext(gcp, "Google Cloud Platform", "Compute and storage")
+System_Ext(oracle, "Oracle Cloud", "Infrastructure")
+System_Ext(yahoo_finance, "Yahoo Finance", "Stock data")
+System_Ext(email_provider, "Email Provider", "SendGrid/Resend", "Email notifications")
+
+Rel(user, prop_roo_frontend, "Uses")
+Rel(user, folio_frontend, "Uses")
+Rel(user, qullamaggie_frontend, "Uses")
+Rel(user, rentroo_frontend, "Uses")
+Rel(user, crewcircle_frontend, "Uses")
+Rel(user, mobile_app, "Uses")
+
+Rel(prop_roo_frontend, prop_roo_api, "Calls")
+Rel(folio_frontend, folio_api, "Calls")
+Rel(qullamaggie_frontend, qullamaggie_api, "Calls")
+Rel(rentroo_frontend, rentroo_api, "Calls")
+Rel(crewcircle_frontend, crewcircle_api, "Calls")
+Rel(mobile_app, card_scanner, "Uses")
+
+Rel(prop_roo_api, prop_roo_db, "Reads/Writes")
+Rel(folio_api, folio_db, "Reads/Writes")
+Rel(rentroo_api, rentroo_db, "Reads/Writes")
+Rel(crewcircle_api, crewcircle_db, "Reads/Writes")
+
+Rel(prop_roo_api, vercel, "Hosted on")
+Rel(qullamaggie_api, vercel, "Hosted on")
+Rel(crewcircle_api, vercel, "Hosted on")
+Rel(rentroo_api, oracle, "Hosted on")
+PropRoo_API --> cloudflare
+Rel(prop_roo_api, neon_main, "Uses")
+
+Rel(qullamaggie_api, yahoo_finance, "Fetches stock data")
+Rel(qullamaggie_api, llm_service, "Uses")
+
+Rel(card_scanner, ocr_service, "Uses")
+Rel(video_api, transcription_service, "Uses")
+Rel(video_api, llm_service, "Uses")
+```
