@@ -1,0 +1,52 @@
+---
+title: C4 System Context Diagram - Qullamaggie Momentum Scanner
+---
+graph TB
+    subgraph External["External Systems"]
+        YF[("Yahoo Finance API<br/>Market Data Provider")]
+        IBKR[("IBKR TWS Gateway<br/>Broker API")]
+        VERCEL[("Vercel Platform<br/>Hosting & CDN")]
+    end
+
+    subgraph User["Users"]
+        TRADER[("Trader / Analyst<br/>End User")]
+    end
+
+    subgraph System["Qullamaggie Scanner System"]
+        subgraph Frontend["Frontend Application (React SPA)"]
+            UI[Web UI<br/>Scanner & Charts]
+            STORE[Zustand Store<br/>State Management]
+            CACHE[("IndexedDB Cache<br/>Dexie.js")]
+            SCORING[Scoring Engine<br/>20-Point Algorithm]
+        end
+
+        subgraph Backend["Python Backend (Optional)"]
+            TWS[IBKR TWS Service<br/>Live Scanning]
+            ENGINE[Scanner Engine<br/>Decision Station]
+        end
+    end
+
+    TRADER -->|"Opens in browser"| UI
+    UI -->|"Manages state via"| STORE
+    STORE -->|"Reads/Writes"| CACHE
+    STORE -->|"Computes scores via"| SCORING
+    UI -->|"Requests market data"| YF
+    YF -->|"Returns OHLCV data"| UI
+
+    TRADER -.->|"Optional: Live trading"| TWS
+    TWS -->|"Socket connection<br/>Port 7496/7497"| IBKR
+    IBKR -->|"Real-time quotes<br/>& order execution"| TWS
+    TWS -->|"Feeds data to"| ENGINE
+    ENGINE -->|"Triggers scans via"| UI
+
+    UI -->|"Deployed to"| VERCEL
+    VERCEL -->|"Serves static assets"| TRADER
+
+    classDef user fill:#08427b,stroke:#052d4f,color:#fff
+    classDef system fill:#1168bd,stroke:#0b4884,color:#fff
+    classDef external fill:#999999,stroke:#666666,color:#fff
+    classDef container fill:#438dd5,stroke:#2e6aa6,color:#fff
+
+    class TRADER user
+    class UI,STORE,CACHE,SCORING,TWS,ENGINE container
+    class YF,IBKR,VERCEL external

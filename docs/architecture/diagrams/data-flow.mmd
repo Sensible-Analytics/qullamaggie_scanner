@@ -1,0 +1,117 @@
+```mermaid
+flowchart TD
+    subgraph Client["Client Layer"]
+        User["User"]
+        Mobile["Mobile App"]
+        Browser["Browser"]
+    end
+    
+    subgraph Edge["Edge Layer"]
+        Cloudflare["Cloudflare"]
+        Vercel["Vercel Edge"]
+    end
+    
+    subgraph API["API Services"]
+        Gateway["API Gateway"]
+        Auth["Auth Service"]
+        Webhook["Webhook Handler"]
+    end
+    
+    subgraph Services["Business Services"]
+        Property["Property Service"]
+        Portfolio["Portfolio Service"]
+        Stock["Stock Service"]
+        Workforce["Workforce Service"]
+        OCR["OCR Service"]
+        Transcription["Transcription Service"]
+    end
+    
+    subgraph External["External Services"]
+        OpenAI["OpenAI"]
+        Yahoo["Yahoo Finance"]
+        Email["Email Provider"]
+        Stripe["Payment Providers"]
+    end
+    
+    subgraph Data["Data Layer"]
+        Neon["Neon (PostgreSQL)"]
+        DuckDB["DuckDB"]
+        Redis["Redis Cache"]
+        S3["S3 Storage"]
+    end
+    
+    %% Client to Edge
+    User -->|HTTPS| Cloudflare
+    Mobile -->|HTTPS| Vercel
+    Browser -->|HTTPS| Vercel
+    
+    %% Edge to API
+    Cloudflare -->|Proxy| Gateway
+    Vercel -->|Proxy| Gateway
+    
+    Gateway -->|Validate| Auth
+    Auth -.->|JWT Token| Gateway
+    
+    %% API to Services
+    Gateway -->|Route| Property
+    Gateway -->|Route| Portfolio
+    Gateway -->|Route| Stock
+    Gateway -->|Route| Workforce
+    
+    %% Service interactions
+    Property -->|Cache| Redis
+    Property -->|Query| DuckDB
+    Property -->|Webhook| Webhook
+    
+    Portfolio -->|Read/Write| Neon
+    Stock -->|Fetch| Yahoo
+    Stock -->|AI Analysis| OpenAI
+    Workforce -->|Email| Email
+    
+    %% OCR Flow
+    Mobile -->|Upload Image| OCR
+    OCR -->|Vision API| OpenAI
+    OpenAI -->|Extract Text| OCR
+    OCR -->|Save Contact| Neon
+    
+    %% Video Analysis Flow
+    Browser -->|Upload Video| Transcription
+    Transcription -->|Whisper API| OpenAI
+    OpenAI -->|Transcript| Transcription
+    Transcription -->|LLM Analysis| OpenAI
+    OpenAI -->|Summary| Transcription
+    
+    %% Responses
+    Property -.->|JSON| Gateway
+    Portfolio -.->|JSON| Gateway
+    Stock -.->|JSON| Gateway
+    Workforce -.->|JSON| Gateway
+    OCR -.->|JSON| Mobile
+    Transcription -.->|JSON| Browser
+    
+    Gateway -.->|HTTPS| Cloudflare
+    Gateway -.->|HTTPS| Vercel
+    
+    %% Data flow labels
+    style User fill:#f9f,stroke:#333
+    style OpenAI fill:#ff9,stroke:#333
+    style Neon fill:#9f9,stroke:#333
+```
+
+### Data Flow Documentation Requirements
+
+For each data flow path, document:
+
+1. **Source** - Where data originates
+2. **Destination** - Where data goes
+3. **Format** - Data format (JSON, binary, etc.)
+4. **Authentication** - How identity is verified
+5. **Error handling** - What happens on failure
+
+Example entry:
+
+| Flow | Source → Dest | Format | Auth | Error Handling |
+|------|--------------|--------|------|----------------|
+| User Login | Browser → Gateway | JSON | Password | 401 on failure |
+| Stock Query | Stock → Yahoo | API | API Key | Cache fallback |
+| OCR Scan | Mobile → OCR | Image | JWT | Retry 3x |

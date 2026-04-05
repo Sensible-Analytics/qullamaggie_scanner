@@ -1,15 +1,27 @@
-# Default CODEOWNERS for Sensible Analytics repositories
+# Sensible Analytics CODEOWNERS
+# ================================
 
-# Global fallback - all files
-* @Sensible-Analytics/engineering
+# Default: Senior Engineers (Lead Team)
+*                   @Sensible-Analytics/lead
 
-# Organization-level files
-.github/ @Sensible-Analytics/engineering
-CODEOWNERS @Sensible-Analytics/engineering
-LICENSE @Sensible-Analytics/engineering
-SECURITY.md @Sensible-Analytics/engineering
+# Frontend (React/TypeScript)
+frontend/src/      @Sensible-Analytics/frontend
+src/components/    @Sensible-Analytics/frontend
+*.tsx              @Sensible-Analytics/frontend
 
-# Documentation
-README.md @Sensible-Analytics/engineering
-CONTRIBUTING.md @Sensible-Analytics/engineering
-CODE_OF_CONDUCT.md @Sensible-Analytics/engineering
+# Backend (Python)
+backend/           @Sensible-Analytics/backend
+src/               @Sensible-Analytics/backend
+*.py               @Sensible-Analytics/backend
+
+# Data/Analytics
+src/data/          @Sensible-Analytics/analytics
+src/scanner/       @Sensible-Analytics/analytics
+
+# Infrastructure
+terraform/          @Sensible-Analytics/devops
+docker-compose.yml @Sensible-Analytics/devops
+
+# GitHub configs (keep last)
+.github/           @Sensible-Analytics/lead
+CODEOWNERS         @Sensible-Analytics/lead

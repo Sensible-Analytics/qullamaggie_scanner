@@ -1,0 +1,124 @@
+```mermaid
+classDiagram
+    %% Base Entities
+    class User {
+        +String id
+        +String email
+        +String name
+        +UserRole role
+        +DateTime createdAt
+        +create() User
+        +validate() boolean
+    }
+    
+    class Organization {
+        +String id
+        +String name
+        +List~User~ members
+        +Settings settings
+        +create() Organization
+    }
+    
+    %% Enums
+    class UserRole {
+        <<enumeration>>
+        ADMIN
+        MEMBER
+        VIEWER
+    }
+    
+    %% Services
+    class AuthService {
+        +login(credentials) Token
+        +register(user) User
+        +validateToken(token) User
+    }
+    
+    class DeploymentService {
+        +deploy(project, env) Deployment
+        +rollback(deploymentId) void
+        +getStatus(deploymentId) DeploymentStatus
+    }
+    
+    class EnvironmentRegistry {
+        +List~Environment~ environments
+        +addEnvironment(env) void
+        +updateEnvironment(env) void
+        +getEnvironment(name) Environment
+    }
+    
+    %% Data Models
+    class Environment {
+        +String name
+        +String url
+        +DatabaseConfig database
+        +TechStack techStack
+        +DeploymentInfo deployment
+    }
+    
+    class DatabaseConfig {
+        +String type
+        +String host
+        +int port
+        +String name
+    }
+    
+    class TechStack {
+        +String frontend
+        +String backend
+        +String database
+        +String deployment
+    }
+    
+    class Deployment {
+        +String id
+        +String project
+        +String environment
+        +String status
+        +DateTime deployedAt
+        +String commitHash
+    }
+    
+    %% Relationships
+    User "1" --> "*" Organization : belongs to
+    Organization "1" --> "*" Environment : manages
+    
+    AuthService --> User : authenticates
+    DeploymentService --> Deployment : creates
+    EnvironmentRegistry --> Environment : tracks
+    
+    User <|-- UserRole
+    Environment --> DatabaseConfig : uses
+    Environment --> TechStack : uses
+    Environment --> Deployment : has
+```
+
+### Documentation Standards for Types
+
+Every important type should be documented with:
+
+1. **Purpose** - What the type represents
+2. **Properties** - All fields with types and meanings
+3. **Relationships** - How it connects to other types
+4. **Usage** - Where it's used in the system
+
+Example:
+
+```typescript
+/**
+ * Represents a deployment environment.
+ * 
+ * @property name - Environment identifier (e.g., "production", "staging")
+ * @property url - Base URL for the deployed application
+ * @property database - Database connection configuration
+ * @property techStack - Technology stack used (frontend, backend, database)
+ * @property deployment - Deployment details (platform, status, commit)
+ */
+interface Environment {
+  name: string;
+  url: string;
+  database: DatabaseConfig;
+  techStack: TechStack;
+  deployment: DeploymentInfo;
+}
+```
