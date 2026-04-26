@@ -1,6 +1,4 @@
-interface EmptyStateProps {}
-
-export function EmptyState({}: EmptyStateProps) {
+export function EmptyState() {
   return (
     <div className="rounded-lg border p-6" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
       <div className="text-center py-8">

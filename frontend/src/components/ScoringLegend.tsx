@@ -1,6 +1,4 @@
-interface ScoringLegendProps {}
-
-export function ScoringLegend({}: ScoringLegendProps) {
+export function ScoringLegend() {
   return (
     <div className="pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
       <h3 className="text-xs font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
