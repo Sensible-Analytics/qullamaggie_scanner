@@ -3,6 +3,8 @@ import { useScannerStore } from '../store/scannerStore';
 import { calculateMetrics, filterAndSortResults } from '../utils/calculations';
 import { fetchBatchHistoricalData, STOCK_UNIVERSES, type StockUniverse } from '../services/stockApi';
 import { UniverseSelect, FilterInputs } from './FilterComponents';
+import { ScannerStatus } from './ScannerStatus';
+import { ScoringLegend } from './ScoringLegend';
 
 export default function ScannerControls() {
   const {
@@ -76,12 +78,7 @@ export default function ScannerControls() {
         <h2 className="font-mono text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
           Scanner Config
         </h2>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-green)' }}></span>
-          <span className="text-xs font-mono" style={{ color: 'var(--accent-green)' }}>
-            {isLoading ? 'running' : 'ready'}
-          </span>
-        </div>
+        <ScannerStatus isLoading={isLoading} />
       </div>
       
       <div className="space-y-4">
@@ -114,33 +111,7 @@ export default function ScannerControls() {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-        <h3 className="text-xs font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
-          20-Point System
-        </h3>
-        <ul className="text-xs font-mono space-y-1" style={{ color: 'var(--text-muted)' }}>
-          <li className="flex justify-between">
-            <span>ADR%</span>
-            <span style={{ color: 'var(--text-secondary)' }}>5 max</span>
-          </li>
-          <li className="flex justify-between">
-            <span>RS Momentum</span>
-            <span style={{ color: 'var(--text-secondary)' }}>4 max</span>
-          </li>
-          <li className="flex justify-between">
-            <span>EMA Alignment</span>
-            <span style={{ color: 'var(--text-secondary)' }}>7 max</span>
-          </li>
-          <li className="flex justify-between">
-            <span>Tightness</span>
-            <span style={{ color: 'var(--text-secondary)' }}>2 max</span>
-          </li>
-          <li className="flex justify-between">
-            <span>Volume Surge</span>
-            <span style={{ color: 'var(--text-secondary)' }}>2 max</span>
-          </li>
-        </ul>
-      </div>
+      <ScoringLegend />
     </div>
   );
 }

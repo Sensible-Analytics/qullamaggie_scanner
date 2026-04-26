@@ -1,5 +1,7 @@
 import { useScannerStore } from '../store/scannerStore';
-import { exportToCSV, exportToWatchlist, exportToJson } from '../utils/export';
+import { ScanProgressSkeleton } from './ScanProgressSkeleton';
+import { EmptyState } from './EmptyState';
+import { ExportToolbar } from './ExportToolbar';
 
 export default function ResultsTable() {
   const { results, selectedSymbol, setSelectedSymbol, progress, isLoading } = useScannerStore();
@@ -11,49 +13,11 @@ export default function ResultsTable() {
   };
 
   if (isLoading && progress) {
-    return (
-      <div className="rounded-lg border p-6" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
-        <div className="flex items-center gap-2 mb-4">
-          <span className="animate-pulse" style={{ color: 'var(--accent-amber)' }}>●</span>
-          <span className="font-mono">Scanning markets...</span>
-        </div>
-        <div className="space-y-3">
-          <div className="flex justify-between text-sm font-mono">
-            <span style={{ color: 'var(--text-secondary)' }}>
-              {progress.symbol}
-            </span>
-            <span style={{ color: 'var(--text-muted)' }}>{progress.current}/{progress.total}</span>
-          </div>
-          <div className="w-full rounded-full h-1" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-            <div
-              className="h-1 rounded-full transition-all"
-              style={{ width: `${(progress.current / progress.total) * 100}%`, backgroundColor: 'var(--accent-green)' }}
-            />
-          </div>
-        </div>
-        <div className="mt-4 grid grid-cols-3 gap-2 animate-pulse">
-          <div className="h-8 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }} />
-          <div className="h-8 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }} />
-          <div className="h-8 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }} />
-        </div>
-      </div>
-    );
+    return <ScanProgressSkeleton progress={progress} />;
   }
 
   if (!results.length) {
-    return (
-      <div className="rounded-lg border p-6" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
-        <div className="text-center py-8">
-          <div className="font-mono text-4xl mb-4 opacity-20">[]</div>
-          <p className="font-mono text-sm mb-2" style={{ color: 'var(--text-muted)' }}>
-            No signals found
-          </p>
-          <p className="text-xs font-mono" style={{ color: 'var(--text-muted)', opacity: 0.6 }}>
-            Try lowering the min score or expanding your universe
-          </p>
-        </div>
-      </div>
-    );
+    return <EmptyState />;
   }
 
   return (
@@ -62,29 +26,7 @@ export default function ResultsTable() {
         <h2 className="font-mono text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
           Scan Results ({results.length} stocks)
         </h2>
-        <div className="flex gap-2">
-          <button
-            onClick={() => exportToCSV(results)}
-            className="px-3 py-1 text-xs font-mono rounded transition-colors hover:opacity-80"
-            style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}
-          >
-            CSV
-          </button>
-          <button
-            onClick={() => exportToWatchlist(results)}
-            className="px-3 py-1 text-xs font-mono rounded transition-colors hover:opacity-80"
-            style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}
-          >
-            Watchlist
-          </button>
-          <button
-            onClick={() => exportToJson(results)}
-            className="px-3 py-1 text-xs font-mono rounded transition-colors hover:opacity-80"
-            style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}
-          >
-            JSON
-          </button>
-        </div>
+        <ExportToolbar results={results} />
       </div>
       
       <div className="max-h-80 overflow-y-auto">
