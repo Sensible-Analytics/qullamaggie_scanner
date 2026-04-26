@@ -17,6 +17,15 @@ export interface CachedStockData {
   expiresAt: number;
 }
 
+export interface CachedUniverse {
+  id: string;
+  name: string;
+  symbols: string[];
+  isDefault: boolean;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface CacheStats {
   hits: number;
   misses: number;
@@ -25,13 +34,15 @@ export interface CacheStats {
 
 class StockCacheDB extends Dexie {
   stockData!: Table<CachedStockData, string>;
+  universes!: Table<CachedUniverse, string>;
   private stats: CacheStats = { hits: 0, misses: 0, totalCached: 0 };
 
   constructor() {
     super('QullamaggieScannerCache');
     
-    this.version(1).stores({
-      stockData: 'symbol, timestamp, expiresAt'
+    this.version(2).stores({
+      stockData: 'symbol, timestamp, expiresAt',
+      universes: 'id, name'
     });
   }
 
@@ -123,6 +134,40 @@ class StockCacheDB extends Dexie {
 
   resetStats(): void {
     this.stats = { hits: 0, misses: 0, totalCached: this.stats.totalCached };
+  }
+
+  async getSavedUniverses(): Promise<CachedUniverse[]> {
+    try {
+      return await this.universes.toArray();
+    } catch (error) {
+      console.error('[Cache] Error getting universes:', error);
+      return [];
+    }
+  }
+
+  async saveUniverse(universe: Omit<CachedUniverse, 'createdAt' | 'updatedAt'>): Promise<void> {
+    try {
+      const now = Date.now();
+      const existing = await this.universes.get(universe.id);
+      
+      await this.universes.put({
+        ...universe,
+        createdAt: existing?.createdAt || now,
+        updatedAt: now
+      });
+      console.log(`[Cache] SAVED universe: ${universe.name}`);
+    } catch (error) {
+      console.error('[Cache] Error saving universe:', error);
+    }
+  }
+
+  async deleteUniverse(id: string): Promise<void> {
+    try {
+      await this.universes.delete(id);
+      console.log(`[Cache] DELETED universe: ${id}`);
+    } catch (error) {
+      console.error('[Cache] Error deleting universe:', error);
+    }
   }
 }
 

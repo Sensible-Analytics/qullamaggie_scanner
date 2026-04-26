@@ -1,15 +1,13 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useScannerStore } from '../store/scannerStore';
-import { STOCK_UNIVERSES } from '../services/stockApi';
 import { calculateMetrics, filterAndSortResults } from '../utils/calculations';
-import { fetchBatchHistoricalData } from '../services/stockApi';
+import { fetchBatchHistoricalData, STOCK_UNIVERSES, type StockUniverse } from '../services/stockApi';
+import { UniverseSelect, FilterInputs } from './FilterComponents';
 
 export default function ScannerControls() {
   const {
     selectedUniverse,
-    setSelectedUniverse,
     filters,
-    updateFilters,
     setIsLoading,
     setError,
     setProgress,
@@ -18,6 +16,7 @@ export default function ScannerControls() {
     error,
     results,
     resetScan,
+    loadUniverses,
   } = useScannerStore();
   
   const hasAutoScanned = useRef(false);
@@ -27,7 +26,7 @@ export default function ScannerControls() {
     setIsLoading(true);
     
     try {
-      const universe = STOCK_UNIVERSES.find(u => u.name === selectedUniverse);
+      const universe = STOCK_UNIVERSES.find((u: StockUniverse) => u.name === selectedUniverse);
       if (!universe) {
         throw new Error('Please select a valid stock universe');
       }
@@ -61,6 +60,10 @@ export default function ScannerControls() {
   }, [selectedUniverse, filters, resetScan, setIsLoading, setError, setProgress, setResults]);
 
   useEffect(() => {
+    loadUniverses();
+  }, [loadUniverses]);
+
+  useEffect(() => {
     if (!hasAutoScanned.current && results.length === 0 && !isLoading) {
       hasAutoScanned.current = true;
       handleRunScan();
@@ -82,84 +85,8 @@ export default function ScannerControls() {
       </div>
       
       <div className="space-y-4">
-        <div>
-          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
-            Universe
-          </label>
-          <select
-            value={selectedUniverse}
-            onChange={(e) => setSelectedUniverse(e.target.value)}
-            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
-            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-          >
-            {STOCK_UNIVERSES.map((universe) => (
-              <option key={universe.name} value={universe.name}>
-                {universe.name} ({universe.symbols.length})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
-            Min Price ($)
-          </label>
-          <input
-            type="number"
-            value={filters.minPrice}
-            onChange={(e) => updateFilters({ minPrice: Number(e.target.value) })}
-            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
-            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-            min="0"
-            step="0.5"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
-            Min Volume ($M)
-          </label>
-          <input
-            type="number"
-            value={filters.minVolumeDollars / 1000000}
-            onChange={(e) => updateFilters({ minVolumeDollars: Number(e.target.value) * 1000000 })}
-            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
-            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-            min="0"
-            step="1"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
-            Min ADR (%)
-          </label>
-          <input
-            type="number"
-            value={filters.minADR}
-            onChange={(e) => updateFilters({ minADR: Number(e.target.value) })}
-            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
-            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-            min="0"
-            step="0.5"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
-            Min Score (0-20)
-          </label>
-          <input
-            type="number"
-            value={filters.minScore}
-            onChange={(e) => updateFilters({ minScore: Number(e.target.value) })}
-            className="w-full px-3 py-2 rounded text-sm font-mono border focus:outline-none focus:ring-1"
-            style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-            min="0"
-            max="20"
-            step="1"
-          />
-        </div>
+        <UniverseSelect />
+        <FilterInputs />
 
         <button
           onClick={handleRunScan}
