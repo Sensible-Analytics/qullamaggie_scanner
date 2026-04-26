@@ -6,8 +6,10 @@ export let lastDataSource: DataSource = 'mock';
 export const isDemoMode = false;
 
 export interface StockUniverse {
+  id: string;
   name: string;
   symbols: string[];
+  isCustom?: boolean;
 }
 
 async function fetchFromYahoo(symbol: string, range: string = '1y'): Promise<OHLCV[] | null> {
@@ -70,42 +72,15 @@ async function fetchFromYahoo(symbol: string, range: string = '1y'): Promise<OHL
 }
 
 export const STOCK_UNIVERSES: StockUniverse[] = [
-  {
-    name: 'S&P 500',
-    symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'UNH', 'XOM', 'JPM', 'V', 'PG', 'MA', 'HD', 'CVX', 'MRK', 'ABBV', 'LLY', 'PEP', 'AVGO', 'ORCL', 'ADBE', 'CRM', 'CSCO', 'ACN', 'MCD', 'WMT', 'NFLX', 'KO', 'COST', 'AMD', 'QCOM', 'TXN', 'HON', 'UBER', 'AMAT', 'LOW', 'INTC', 'SBUX', 'GE', 'CAT', 'GILD', 'ISRG', 'BKNG', 'MDLZ', 'ADP', 'REGN', 'LRCX', 'VRTX', 'ZTS'],
-  },
-  {
-    name: 'NASDAQ 100',
-    symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'GOOG', 'AVGO', 'ADBE', 'CRM', 'CSCO', 'NFLX', 'AMD', 'QCOM', 'TXN', 'PEP', 'COST', 'MCD', 'ACN', 'ABBV', 'CMCSA', 'WMT', 'NKE', 'INTC', 'HON', 'INTU', 'TXN', 'AMAT', 'LRCX', 'BKNG', 'SBUX', 'MDLZ', 'ADP', 'REGN', 'VRTX', 'ISRG', 'GILD', 'KLAC', 'SNPS', 'CDNS', 'ORLY', 'NXPI', 'MRNA', 'PANW', 'CRWD', 'ZS', 'DDOG', 'NET', 'OKTA', 'SNOW'],
-  },
-  {
-    name: 'Tech Giants',
-    symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'AVGO', 'AMD', 'QCOM', 'TXN', 'INTC', 'CSCO', 'ORCL', 'ADBE', 'IBM', 'CRM', 'PYPL', 'SHOP', 'SQ', 'UBER'],
-  },
-  {
-    name: 'High Momentum',
-    symbols: ['NVDA', 'TSLA', 'AMD', 'AVGO', 'META', 'PLTR', 'SMCI', 'ARM', 'COIN', 'RIVN', 'LCID', 'SOFI', 'PATH', 'U', 'BBAI', 'AI', 'DDOG', 'SNOW', 'CRWD', 'NET'],
-  },
-  {
-    name: 'Semiconductors',
-    symbols: ['NVDA', 'AMD', 'INTC', 'AVGO', 'QCOM', 'TXN', 'MU', 'AMAT', 'LRCX', 'KLAC', 'SNPS', 'CDNS', 'MRVL', 'ON', 'ARM', 'NXPI', 'ADI', 'MCHP', 'TER', 'ASML'],
-  },
-  {
-    name: 'Clean Energy',
-    symbols: ['ENPH', 'SEDG', 'FSLR', 'RUN', 'NEE', 'IBDRY', 'BE', 'PLUG', 'FCEL', 'BLNK', 'SBE', 'CHPT', 'FLSW', 'EVGO', 'RSASF', 'BEPC', 'CWEN', 'ORA'],
-  },
-  {
-    name: 'FinTech',
-    symbols: ['COIN', 'SQ', 'PYPL', 'SHOP', 'AFRM', 'SOFI', 'UPST', 'HOOD', 'V', 'MA', 'AX', 'FI', 'GPN', 'WORLD', 'NU', 'RBLX', 'U', 'PATH'],
-  },
-  {
-    name: 'Biotech',
-    symbols: ['MRNA', 'REGN', 'BIIB', 'GILD', 'NVAX', 'BNTX', 'INO', 'OCGN', 'ABBV', 'BMY', 'LLY', 'PFE', 'JNJ', 'UNH', 'ISRG', 'DXCM', 'TMO', 'DHR', 'ABT', 'AMGN'],
-  },
-  {
-    name: 'Full Universe (80 stocks)',
-    symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'AVGO', 'ADBE', 'CRM', 'CSCO', 'NFLX', 'AMD', 'QCOM', 'TXN', 'PEP', 'COST', 'MCD', 'ACN', 'ABBV', 'CMCSA', 'WMT', 'NKE', 'INTC', 'HON', 'INTU', 'AMAT', 'LRCX', 'BKNG', 'SBUX', 'MDLZ', 'ADP', 'REGN', 'VRTX', 'ISRG', 'GILD', 'KLAC', 'SNPS', 'ORLY', 'NXPI', 'MRNA', 'PANW', 'CRWD', 'ZS', 'DDOG', 'NET', 'OKTA', 'SNOW', 'PLTR', 'SMCI', 'COIN', 'RIVN', 'SOFI', 'PATH', 'U', 'BBAI', 'ENPH', 'FSLR', 'RUN', 'SQ', 'PYPL', 'HOOD', 'MRVL', 'ARM', 'DHR', 'TMO', 'ABT'],
-  },
+  { id: 'sp500', name: 'S&P 500', symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'UNH', 'XOM', 'JPM', 'V', 'PG', 'MA', 'HD', 'CVX', 'MRK', 'ABBV', 'LLY', 'PEP', 'AVGO', 'ORCL', 'ADBE', 'CRM', 'CSCO', 'ACN', 'MCD', 'WMT', 'NFLX', 'KO', 'COST', 'AMD', 'QCOM', 'TXN', 'HON', 'UBER', 'AMAT', 'LOW', 'INTC', 'SBUX', 'GE', 'CAT', 'GILD', 'ISRG', 'BKNG', 'MDLZ', 'ADP', 'REGN', 'LRCX', 'VRTX', 'ZTS'] },
+  { id: 'nasdaq100', name: 'NASDAQ 100', symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'GOOG', 'AVGO', 'ADBE', 'CRM', 'CSCO', 'NFLX', 'AMD', 'QCOM', 'TXN', 'PEP', 'COST', 'MCD', 'ACN', 'ABBV', 'CMCSA', 'WMT', 'NKE', 'INTC', 'HON', 'INTU', 'TXN', 'AMAT', 'LRCX', 'BKNG', 'SBUX', 'MDLZ', 'ADP', 'REGN', 'VRTX', 'ISRG', 'GILD', 'KLAC', 'SNPS', 'CDNS', 'ORLY', 'NXPI', 'MRNA', 'PANW', 'CRWD', 'ZS', 'DDOG', 'NET', 'OKTA', 'SNOW'] },
+  { id: 'tech-giants', name: 'Tech Giants', symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'AVGO', 'AMD', 'QCOM', 'TXN', 'INTC', 'CSCO', 'ORCL', 'ADBE', 'IBM', 'CRM', 'PYPL', 'SHOP', 'SQ', 'UBER'] },
+  { id: 'high-momentum', name: 'High Momentum', symbols: ['NVDA', 'TSLA', 'AMD', 'AVGO', 'META', 'PLTR', 'SMCI', 'ARM', 'COIN', 'RIVN', 'LCID', 'SOFI', 'PATH', 'U', 'BBAI', 'AI', 'DDOG', 'SNOW', 'CRWD', 'NET'] },
+  { id: 'semiconductors', name: 'Semiconductors', symbols: ['NVDA', 'AMD', 'INTC', 'AVGO', 'QCOM', 'TXN', 'MU', 'AMAT', 'LRCX', 'KLAC', 'SNPS', 'CDNS', 'MRVL', 'ON', 'ARM', 'NXPI', 'ADI', 'MCHP', 'TER', 'ASML'] },
+  { id: 'clean-energy', name: 'Clean Energy', symbols: ['ENPH', 'SEDG', 'FSLR', 'RUN', 'NEE', 'IBDRY', 'BE', 'PLUG', 'FCEL', 'BLNK', 'SBE', 'CHPT', 'FLSW', 'EVGO', 'RSASF', 'BEPC', 'CWEN', 'ORA'] },
+  { id: 'fintech', name: 'FinTech', symbols: ['COIN', 'SQ', 'PYPL', 'SHOP', 'AFRM', 'SOFI', 'UPST', 'HOOD', 'V', 'MA', 'AX', 'FI', 'GPN', 'WORLD', 'NU', 'RBLX', 'U', 'PATH'] },
+  { id: 'biotech', name: 'Biotech', symbols: ['MRNA', 'REGN', 'BIIB', 'GILD', 'NVAX', 'BNTX', 'INO', 'OCGN', 'ABBV', 'BMY', 'LLY', 'PFE', 'JNJ', 'UNH', 'ISRG', 'DXCM', 'TMO', 'DHR', 'ABT', 'AMGN'] },
+  { id: 'full-universe', name: 'Full Universe (80 stocks)', symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'AVGO', 'ADBE', 'CRM', 'CSCO', 'NFLX', 'AMD', 'QCOM', 'TXN', 'PEP', 'COST', 'MCD', 'ACN', 'ABBV', 'CMCSA', 'WMT', 'NKE', 'INTC', 'HON', 'INTU', 'AMAT', 'LRCX', 'BKNG', 'SBUX', 'MDLZ', 'ADP', 'REGN', 'VRTX', 'ISRG', 'GILD', 'KLAC', 'SNPS', 'ORLY', 'NXPI', 'MRNA', 'PANW', 'CRWD', 'ZS', 'DDOG', 'NET', 'OKTA', 'SNOW', 'PLTR', 'SMCI', 'COIN', 'RIVN', 'SOFI', 'PATH', 'U', 'BBAI', 'ENPH', 'FSLR', 'RUN', 'SQ', 'PYPL', 'HOOD', 'MRVL', 'ARM', 'DHR', 'TMO', 'ABT'] },
 ];
 
 export async function fetchHistoricalData(
@@ -266,4 +241,15 @@ export function getDataStats(data: OHLCV[]): {
     totalDays: data.length,
     avgVolume,
   };
+}
+
+export async function getAllUniverses(): Promise<StockUniverse[]> {
+  const saved = await stockCache.getSavedUniverses();
+  const customUniverses: StockUniverse[] = saved.map(u => ({
+    id: u.id,
+    name: u.name,
+    symbols: u.symbols,
+    isCustom: true,
+  }));
+  return [...STOCK_UNIVERSES, ...customUniverses];
 }

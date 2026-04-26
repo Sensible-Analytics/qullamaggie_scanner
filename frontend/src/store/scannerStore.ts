@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { StockMetrics, ScanConfig } from '../utils/calculations';
-import { STOCK_UNIVERSES } from '../services/stockApi';
+import { STOCK_UNIVERSES, getAllUniverses, type StockUniverse } from '../services/stockApi';
 
 interface ScannerState {
   // Data
@@ -14,6 +14,7 @@ interface ScannerState {
   progress: { current: number; total: number; symbol: string } | null;
   filters: ScanConfig;
   selectedUniverse: string;
+  availableUniverses: StockUniverse[];
   
   // Actions
   setUniverse: (universe: string[]) => void;
@@ -24,6 +25,7 @@ interface ScannerState {
   setProgress: (progress: { current: number; total: number; symbol: string } | null) => void;
   updateFilters: (filters: Partial<ScanConfig>) => void;
   setSelectedUniverse: (universeName: string) => void;
+  loadUniverses: () => Promise<void>;
   resetScan: () => void;
 }
 
@@ -37,14 +39,15 @@ const DEFAULT_FILTERS: ScanConfig = {
 
 export const useScannerStore = create<ScannerState>((set) => ({
   // Initial state
-  universe: STOCK_UNIVERSES[2].symbols, // Demo universe
+  universe: STOCK_UNIVERSES[2].symbols,
   results: [],
   selectedSymbol: null,
   isLoading: false,
   error: null,
   progress: null,
   filters: DEFAULT_FILTERS,
-  selectedUniverse: 'Demo Universe',
+  selectedUniverse: 'Tech Giants',
+  availableUniverses: STOCK_UNIVERSES,
   
   // Actions
   setUniverse: (universe) => set({ universe }),
@@ -74,6 +77,11 @@ export const useScannerStore = create<ScannerState>((set) => ({
         error: null,
       });
     }
+  },
+  
+  loadUniverses: async () => {
+    const universes = await getAllUniverses();
+    set({ availableUniverses: universes });
   },
   
   resetScan: () => set({
