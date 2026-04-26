@@ -108,25 +108,15 @@ class ScannerEngine:
             self.update_progress(i, total, symbol, 'scanning')
             
             try:
-                # Add to trace log early
-                trace_entry = {
-                    'symbol': symbol, 
-                    'status': 'Processing', 
-                    'price': 0, 
-                    'adr': 0, 
-                    'rs_pct': 0, 
-                    'volume_m': 0,
-                    'thresholds': {
-                        'min_price': config.get('min_price', 5.0),
-                        'min_adr': config.get('min_adr', 5.0),
-                        'min_volume_m': config.get('min_volume_dollars', 20_000_000) / 1_000_000
-                    }
-                }
+                trace_entry = {'symbol': symbol, 'status': 'Processing', 'price': 0, 'adr': 0, 'rs_pct': 0, 'volume_m': 0, 'thresholds': {'min_price': config.get('min_price', 5.0), 'min_adr': config.get('min_adr', 5.0), 'min_volume_m': config.get('min_volume_dollars', 20_000_000) / 1_000_000}}
                 self.trace_results.append(trace_entry)
 
                 if config.get('data_source', 'ibkr') == 'yahoo':
-                    # Free Data Mode - Fetch from Yahoo Finance
-                    df = self.get_historical_data_yf(symbol, period='1y', interval='1d')
+                    market = config.get('market', 'US')
+                    suffix_map = {'India': '.NS', 'India (NSE)': '.NS', 'Australia': '.AX', 'Australia (ASX)': '.AX', 'US': '', 'US Tech Leaders': ''}
+                    suffix = suffix_map.get(market, '')
+                    yf_symbol = f"{symbol}{suffix}" if suffix else symbol
+                    df = self.get_historical_data_yf(yf_symbol, period='1y', interval='1d')
                     
                     if df is None or len(df) < 50:
                         stats['insufficient_data'] += 1

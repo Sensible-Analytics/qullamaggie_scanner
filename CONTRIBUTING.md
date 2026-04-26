@@ -1,5 +1,10 @@
 # Contributing to Sensible Analytics
 
+This project follows the Sensible Analytics branching, PR, build & deployment standard.
+See full standard: [/tmp/branch_and_pr_standard.md](file:///tmp/branch_and_pr_standard.md)
+
+---
+
 First off, thank you for considering contributing to Sensible Analytics! It's people like you that make our tools better for everyone.
 
 ## 📋 Table of Contents

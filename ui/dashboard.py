@@ -185,7 +185,7 @@ min_price = st.sidebar.slider("Min Price ($)", 1.0, 50.0, 5.0, help="Exclude pen
 min_score = st.sidebar.slider("Min Setup Score", 0, 20, 8, help="Quality threshold.")
 
 if st.sidebar.button("▶ RUN SCAN", width='stretch'):
-    config = {'min_adr': min_adr, 'min_score': min_score, 'min_price': min_price, 'data_source': data_source}
+    config = {'min_adr': min_adr, 'min_score': min_score, 'min_price': min_price, 'data_source': data_source, 'market': market}
     
     # Connection Check
     can_run = True
