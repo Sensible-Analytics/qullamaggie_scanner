@@ -1,10 +1,12 @@
 # Agent Instructions - Branch Protection Workflow
 
-## ⚠️ IMPORTANT: This repository has branch protection enabled
+> ⚠️ **For complete agent guidelines, see [.github/AGENTS.md](.github/AGENTS.md)**
 
-Direct pushes to `main`/`master` are **BLOCKED**. All changes must go through Pull Requests.
+## Quick Reference
 
-## Required Workflow
+### Branch Protection
+
+This repository has branch protection enabled. All changes must go through Pull Requests.
 
 ### Making Changes
 
@@ -89,7 +91,7 @@ git checkout main && git pull
 
 ---
 
-## 📄 Governance Documents
+## Governance Documents
 
-- [Code of Conduct](docs/CODE_OF_CONDUCT.md)
-- [Security Policy](docs/SECURITY.md)
+- [Code of Conduct](.github/CODE_OF_CONDUCT.md)
+- [Security Policy](.github/SECURITY.md)
