@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useScannerStore } from '../store/scannerStore';
-import { calculateMetrics, filterAndSortResults } from '../utils/calculations';
+import { calculateMetrics, filterAndSortResults, type StockMetrics } from '../utils/calculations';
 import { fetchBatchHistoricalData, STOCK_UNIVERSES, type StockUniverse } from '../services/stockApi';
 import { UniverseSelect, FilterInputs } from './FilterComponents';
 import { ScannerStatus } from './ScannerStatus';
@@ -14,6 +14,7 @@ export default function ScannerControls() {
     setError,
     setProgress,
     setResults,
+    setFilteredStocks,
     isLoading,
     error,
     results,
@@ -44,14 +45,18 @@ export default function ScannerControls() {
         throw new Error('No data received. Please try again.');
       }
       
-      const scanResults = [];
+      const scanResults: StockMetrics[] = [];
+      const filteredList: { symbol: string; reason: string }[] = [];
       for (const [symbol, data] of Array.from(dataMap.entries())) {
-        const { metrics } = calculateMetrics(data, symbol, filters);
+        const { metrics, reason } = calculateMetrics(data, symbol, filters);
         if (metrics) {
           scanResults.push(metrics);
+        } else if (reason) {
+          filteredList.push({ symbol, reason });
         }
       }
       
+      setFilteredStocks(filteredList);
       const filteredResults = filterAndSortResults(scanResults, filters.minScore);
       setResults(filteredResults);
       setProgress(null);
