@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { createChart, CandlestickSeries, LineSeries, HistogramSeries } from 'lightweight-charts';
 import { useScannerStore } from '../store/scannerStore';
+import { InfoTooltip } from './InfoTooltip';
+import { SelectionRationale } from './SelectionRationale';
 
 export default function DetailPanel() {
   const { results, selectedSymbol } = useScannerStore();
@@ -153,20 +155,42 @@ export default function DetailPanel() {
 
       <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
         <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>ADR%</p>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>
+            ADR%
+            <InfoTooltip term="ADR%">Average Daily Range — the avg % difference between high and low over 20 trading days. Higher ADR means more volatility. The golden rule: ADR should be ≥5% for momentum setups.</InfoTooltip>
+          </p>
           <p className="font-mono font-semibold">{stock.adr.toFixed(2)}%</p>
         </div>
         <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>RS Momentum</p>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>
+            RS Momentum
+            <InfoTooltip term="RS Momentum">Relative Strength Momentum — measures how far the stock has climbed from its lowest point. Large % moves from the low indicate strong upward momentum. Scored up to 4 points.</InfoTooltip>
+          </p>
           <p className="font-mono font-semibold">{stock.rs_pct.toFixed(0)}%</p>
         </div>
         <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Stop Loss</p>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>
+            Stop Loss
+            <InfoTooltip term="Stop Loss">The price level at which you would exit to limit losses. Set at 1.5× ATR below price or at the EMA10, whichever is higher.</InfoTooltip>
+          </p>
           <p className="font-mono font-semibold">${stock.suggested_stop.toFixed(2)}</p>
         </div>
         <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>R:R Ratio</p>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>
+            R:R Ratio
+            <InfoTooltip term="R:R Ratio">Risk-to-Reward — compares potential upside (to 52-week high) against potential downside (to stop loss). A ratio above 2:1 is considered favourable.</InfoTooltip>
+          </p>
           <p className="font-mono font-semibold">{stock.rr_ratio.toFixed(2)}</p>
+        </div>
+      </div>
+
+      <div className="px-4 pb-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+        <div className="pt-4">
+          <h3 className="font-mono text-sm font-semibold mb-3" style={{ color: 'var(--text-secondary)' }}>
+            Selection Rationale
+            <InfoTooltip term="Why This Stock">Breakdown of how each scoring factor contributed to this stock's rating. Bars show score received vs maximum possible per category.</InfoTooltip>
+          </h3>
+          <SelectionRationale lineage={stock.lineage} />
         </div>
       </div>
 

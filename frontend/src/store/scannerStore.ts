@@ -2,10 +2,16 @@ import { create } from 'zustand';
 import type { StockMetrics, ScanConfig } from '../utils/calculations';
 import { STOCK_UNIVERSES, getAllUniverses, type StockUniverse } from '../services/stockApi';
 
+interface FilteredStock {
+  symbol: string;
+  reason: string;
+}
+
 interface ScannerState {
   // Data
   universe: string[];
   results: StockMetrics[];
+  filteredStocks: FilteredStock[];
   selectedSymbol: string | null;
   
   // UI State
@@ -19,6 +25,7 @@ interface ScannerState {
   // Actions
   setUniverse: (universe: string[]) => void;
   setResults: (results: StockMetrics[]) => void;
+  setFilteredStocks: (filteredStocks: FilteredStock[]) => void;
   setSelectedSymbol: (symbol: string | null) => void;
   setIsLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
@@ -41,6 +48,7 @@ export const useScannerStore = create<ScannerState>((set) => ({
   // Initial state
   universe: STOCK_UNIVERSES[2].symbols,
   results: [],
+  filteredStocks: [],
   selectedSymbol: null,
   isLoading: false,
   error: null,
@@ -53,6 +61,8 @@ export const useScannerStore = create<ScannerState>((set) => ({
   setUniverse: (universe) => set({ universe }),
   
   setResults: (results) => set({ results, error: null }),
+  
+  setFilteredStocks: (filteredStocks) => set({ filteredStocks }),
   
   setSelectedSymbol: (symbol) => set({ selectedSymbol: symbol }),
   
@@ -86,6 +96,7 @@ export const useScannerStore = create<ScannerState>((set) => ({
   
   resetScan: () => set({
     results: [],
+    filteredStocks: [],
     selectedSymbol: null,
     progress: null,
     isLoading: false,
